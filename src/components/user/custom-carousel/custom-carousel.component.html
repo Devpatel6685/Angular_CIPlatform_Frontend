@@ -1,0 +1,8 @@
+<owl-carousel-o [options]="customOptions">
+    @for (slide of slides; track slide) {
+    <ng-template carouselSlide>
+        <img [src]="slide.image" [alt]="slide.image" />
+        <h4 class="carousel-caption">{{slide.text}}</h4>
+    </ng-template>
+    }
+</owl-carousel-o>
