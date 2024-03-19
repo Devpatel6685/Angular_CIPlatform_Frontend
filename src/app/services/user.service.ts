@@ -1,12 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoginDTO } from '../models/user-models';
+import { ApiResponseDTO } from '../models/apiresponse-model';
+import { baseAPIUrl, endPoint } from '../Common/constant';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-
+  public isLoggedIn = new BehaviorSubject<boolean>(false);
+  public currentUser = new BehaviorSubject<any>(null);
+  
   constructor(private http: HttpClient) { }
   private url:string = "";
   // private url = 'https://localhost:7057/user/getuser';
@@ -30,4 +36,16 @@ export class UserService {
     return this.http.get(this.url);
   }
 
+  Login(body: LoginDTO): Observable<ApiResponseDTO> {
+    return this.http.post<ApiResponseDTO>(baseAPIUrl + endPoint.Login, body);
+  }
+
+  public currentUserValue(): any {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      return JSON.parse(user);
+    } else {
+      return null;
+    }
+  }
 }

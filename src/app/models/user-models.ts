@@ -7,3 +7,8 @@ export interface Banner{
     updatedAt: Date
     deletedAt: Date
   }
+
+  export interface LoginDTO {
+    email: string,
+    password: string
+}

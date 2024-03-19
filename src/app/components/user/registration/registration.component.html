@@ -81,7 +81,7 @@
                 <button mat-stroked-button extended color="warn" class="outline-btn" (click)="submit()"> Register </button>
                 <div class="d-flex flex-column justify-content-center align-items-center mt-3">
                     <a class="link-dark link-underline-opacity-0" href="#">Lost your password?</a>
-                    <span class="mt-3"> Already registered? <a class="link-underline-light" href="#"> Login now </a>
+                    <span class="mt-3"> Already registered? <a class="link-underline-light" [routerLink]="['/Login']"> Login now </a>
                     </span>
                 </div>
             </div>

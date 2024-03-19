@@ -1,5 +1,10 @@
 import { FormControl } from "@angular/forms"
 
+export type loginForm = {
+    email: FormControl<string | null>,
+    password: FormControl<string | null>,
+}
+
 export type registrationForm = {
     firstName: FormControl<string | null>,
     lastName: FormControl<string | null>,

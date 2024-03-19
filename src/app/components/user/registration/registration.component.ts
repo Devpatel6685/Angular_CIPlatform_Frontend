@@ -10,11 +10,12 @@ import { registrationForm } from '../../../models/user-formType.models';
 import { CommonFunctionService } from '../../../services/Common-function.service';
 import { Console } from 'console';
 import { UserService } from '../../../services/user.service';
+import { RouterLink } from '@angular/router';
  
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule,FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent],
+  imports: [RouterLink,CommonModule,FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })

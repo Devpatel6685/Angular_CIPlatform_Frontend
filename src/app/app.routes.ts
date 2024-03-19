@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { RegistrationComponent } from './components/user/registration/registration.component';
+import { LoginComponent } from './components/user/login/login.component';
 
 export const routes: Routes = [
     {
@@ -8,7 +9,11 @@ export const routes: Routes = [
         title: 'registeration'
     },
     {
-        path: '',
-        component: RegistrationComponent,
+        path : 'Login',
+        component : LoginComponent
     },
+    {
+        path: '**',
+        redirectTo: ''
+    }
 ];
