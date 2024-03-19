@@ -24,15 +24,14 @@ export class CommonFunctionService {
     }
 
     if (control?.hasError('pattern')) {
+      if(formField == 'phoneNumber'){
+        return `${controlName} must be at least 10 digits long`;
+      }
       return 'Invalid format. Password must contain at least one uppercase letter and one digit.';
     }
 
     if (control?.hasError('minlength')) {
-      if(formField == 'phoneNumber'){
-        return `${controlName} must be at least 10 digits long.`;
-      }else{
-        return `${controlName} must be at least 8 characters long.`;
-      }
+      return `${controlName} must be at least 8 characters long.`;
     }
 
     if (control?.hasError('maxlength')) {
@@ -44,4 +43,5 @@ export class CommonFunctionService {
     }
     return '';
   }
+
 }

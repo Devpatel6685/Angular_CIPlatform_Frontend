@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { Banner } from '../../../models/user-models';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Banner } from '../../../models/user-models';
 
 @Component({
   selector: 'app-custom-carousel',
