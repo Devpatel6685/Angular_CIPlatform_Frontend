@@ -12,6 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { LoginDTO } from '../../../models/user-models';
 import { UserService } from '../../../services/user.service';
 import { RouterLink } from '@angular/router';
+import { ok } from 'assert';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class LoginComponent {
       const data: LoginDTO = { ...this.loginForm.value } as LoginDTO;
       this.userService.Login(data).pipe(takeUntil(this.ngUnsubscribe)).subscribe(result => {
         if (result.code == 200 && result.data != null) {
+          this.snackBar.open('Login Successful', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
           sessionStorage.setItem("token", result.data.token);
           this.userService.isLoggedIn.next(true);
           this.userService.currentUser.next(result.data.data);
@@ -50,6 +52,7 @@ export class LoginComponent {
         }
       });
     }
+    this.snackBar.open('Login Failed', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
   }
 
   redirectToUrl(url: string) {

@@ -37,9 +37,6 @@ export class RegistrationComponent {
     private userservice: UserService
   ) { }
 
-
-  public isUserExist: boolean = false;
-
   submit = (): void => {
     this.userservice.IsUserExist(this.registerForm.getRawValue().email).subscribe(res => {
       if (res)
@@ -53,6 +50,7 @@ export class RegistrationComponent {
           console.log('success')
         }
       });
+      this.snackBar.open('Registration Successful', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
       this.redirectToUrl("/");
     }
   }

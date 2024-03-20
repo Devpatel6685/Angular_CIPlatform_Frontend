@@ -4,6 +4,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/user/reset-password/reset-password.component';
 import { MissionListingComponent } from './components/mission/mission-listing/mission-listing.component';
+import { AuthGuard } from './Common/authentication/auth-guard';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,7 @@ export const routes: Routes = [
     {
         path: 'mission-listing',
         component: MissionListingComponent,
-        title: 'CI | Mission Listing'
+        title: 'CI | Mission Listing',
+        canActivate: [AuthGuard],
     },
 ];

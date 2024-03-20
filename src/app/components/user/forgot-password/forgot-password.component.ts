@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomCarouselComponent } from '../custom-carousel/custom-carousel.component';
 import { forgotPasswordForm } from '../../../models/user-formType.models';
 import { Router } from '@angular/router';
@@ -32,7 +32,7 @@ export class ForgotPasswordComponent {
     email: new FormControl("", [Validators.required, Validators.email]),
   });
 
-  constructor(public commonFunctionService:CommonFunctionService, private router: Router,private userService : UserService) { }
+  constructor(public commonFunctionService:CommonFunctionService, private router: Router,private userService : UserService, private snackBar: MatSnackBar,) { }
 
   submit = (): void => {
     if (this.forgotPassForm.valid) {
@@ -40,9 +40,11 @@ export class ForgotPasswordComponent {
         this.message = (result.messages) ? result.messages[0] : this.message;
         if (result.code === StatusCodes.Ok) {
           this.forgotPasswordSuccess = true;
+          this.snackBar.open('Email Sent', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
           this.router.navigate(["/"]);
         } else {
           this.forgotPasswordSuccess = false;
+          this.snackBar.open('Failed', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
         }
       });
     }

@@ -1,7 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .success {
     background-color: green;
@@ -15,4 +20,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border: solid 2px var(--mdc-outlined-button-label-text-color) !important;
     border-radius: 30px !important;
     height: 48px !important;
+}
+
+.general-success {
+    padding: 15px;
+    border-radius: 6px;
+    background: rgba(64, 235, 52, 0.3);
+    color: #10d402;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.general-success-wrapper {
+    margin-bottom: 10px;
 }
