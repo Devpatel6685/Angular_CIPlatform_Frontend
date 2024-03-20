@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoginDTO } from '../models/user-models';
+import { LoginDTO, ResetPasswordDTO } from '../models/user-models';
 import { ApiResponseDTO } from '../models/apiresponse-model';
 import { baseAPIUrl, endPoint } from '../Common/constant';
 
@@ -15,29 +15,26 @@ export class UserService {
   
   constructor(private http: HttpClient) { }
   private url:string = "";
-  // private url = 'https://localhost:7057/user/getuser';
-
-  // GetAllUser() {
-  //   return this.http.get<registrationForm[]>(this.url);
-  // }
-
-  // onClickedUserDetails: EventEmitter<User> = new EventEmitter<User>();
-
-  // OnShowUserDetail(user: User){
-  //   this.onClickedUserDetails.emit(user);
-  // }
-
+  
   CreateUser(model:any) {
-    return this.http.post("https://localhost:7034/api/User/User/register",model);
+    return this.http.post("https://localhost:7034/api/User/register",model);
   }
   
   IsUserExist(email:string | null){
-    this.url = "https://localhost:7034/api/User/User/IsUserExist?email=" + email;
+    this.url = "https://localhost:7034/api/User/IsUserExist?email=" + email;
     return this.http.get(this.url);
   }
 
   Login(body: LoginDTO): Observable<ApiResponseDTO> {
     return this.http.post<ApiResponseDTO>(baseAPIUrl + endPoint.Login, body);
+  }
+
+  ForgotPassword(email: string | null | undefined): Observable<ApiResponseDTO> {
+    return this.http.get<ApiResponseDTO>(baseAPIUrl + endPoint.ForgotPassword + "?email=" + email);
+  }
+
+  ResetPassword(body: ResetPasswordDTO): Observable<ApiResponseDTO> {
+    return this.http.post<ApiResponseDTO>(baseAPIUrl + endPoint.ResetPassword, body);
   }
 
   public currentUserValue(): any {

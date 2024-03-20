@@ -10,7 +10,7 @@ import { registrationForm } from '../../../models/user-formType.models';
 import { CommonFunctionService } from '../../../services/Common-function.service';
 import { Console } from 'console';
 import { UserService } from '../../../services/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
  
 @Component({
   selector: 'app-registration',
@@ -33,14 +33,11 @@ export class RegistrationComponent {
   constructor(private fb: FormBuilder,
     private snackBar: MatSnackBar,
     public commonFunctionService:CommonFunctionService,
+    private router: Router,
     private userservice:UserService
   ) { }
   
   public isUserExist:boolean = false;
-
-  // checkEmail() {
-  //   return (control.value || '').trim().length ? null : { 'whitespace': true };
-  // }
 
   submit = (): void => {
     this.userservice.IsUserExist(this.registerForm.getRawValue().email).subscribe(res => {
@@ -53,8 +50,14 @@ export class RegistrationComponent {
       this.userservice.CreateUser(this.registerForm.getRawValue()).subscribe((res) => {
         if (res == null) {
           console.log('success')
+          this.redirectToUrl("/");
         }
       });
     }
   }
+
+  redirectToUrl(url: string) {
+    this.router.navigate([url]);
+  }
+
 }

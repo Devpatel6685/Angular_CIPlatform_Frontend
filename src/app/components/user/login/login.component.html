@@ -25,8 +25,8 @@
                 </mat-form-field>
                 <button mat-stroked-button extended color="warn" class="outline-btn" (click)="submit()"> Login </button>
                 <div class="d-flex flex-column justify-content-center align-items-center mt-3">
-                    <a class="link-dark link-underline-opacity-0" href="#">Lost your password?</a>
-                    <span class="mt-3"> Don't have an account? <a class="link-underline-light" href="#"> Create an
+                    <a class="link-dark link-underline-opacity-0" [routerLink]="['/forgot-password']">Lost your password?</a>
+                    <span class="mt-3"> Don't have an account? <a class="link-underline-light" [routerLink]="['/register']"> Create an
                             account </a> </span>
                 </div>
             </div>

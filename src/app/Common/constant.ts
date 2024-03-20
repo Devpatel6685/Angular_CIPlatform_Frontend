@@ -2,6 +2,8 @@ export const baseAPIUrl = "https://localhost:7034/api/";
 
 export const endPoint = {
     Login: "User/Login",
+    ForgotPassword: "User/ForgotPassword",
+    ResetPassword: "User/ResetPassword",
 };
 
 export const StatusCodes = {

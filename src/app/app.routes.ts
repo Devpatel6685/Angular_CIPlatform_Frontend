@@ -1,19 +1,34 @@
 import { Routes } from '@angular/router';
 import { RegistrationComponent } from './components/user/registration/registration.component';
 import { LoginComponent } from './components/user/login/login.component';
+import { ForgotPasswordComponent } from './components/user/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/user/reset-password/reset-password.component';
+import { MissionListingComponent } from './components/mission/mission-listing/mission-listing.component';
 
 export const routes: Routes = [
     {
-        path: 'registeration',
+        path: '',
+        component: LoginComponent,
+        title: 'CI | Login'
+    },
+    {
+        path: 'register',
         component: RegistrationComponent,
-        title: 'registeration'
+        title: 'CI | Register'
     },
     {
-        path : 'Login',
-        component : LoginComponent
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+        title: 'CI | Forgot Password'
     },
     {
-        path: '**',
-        redirectTo: ''
-    }
+        path: 'reset-password/:token',
+        component: ResetPasswordComponent,
+        title: 'CI | Reset Password'
+    },
+    {
+        path: 'mission-listing',
+        component: MissionListingComponent,
+        title: 'CI | Mission Listing'
+    },
 ];
