@@ -41,7 +41,13 @@ export class CommonFunctionService {
     if (control?.hasError('email')) {
       return 'Please enter valid Email.';
     }
+
+    if(control?.hasError('incorrect'))
+    {
+      return 'The user with the above email address already exists.';
+    }
     return '';
   }
 
 }
+
