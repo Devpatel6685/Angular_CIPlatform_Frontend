@@ -38,10 +38,9 @@ export class LoginComponent {
   submit = (): void => {
     if (this.loginForm.valid) {
       const data: LoginDTO = { ...this.loginForm.value } as LoginDTO;
-      data.password = btoa(data.password);
       this.userService.Login(data).pipe(takeUntil(this.ngUnsubscribe)).subscribe(result => {
         if (result.code == 200 && result.data != null) {
-          sessionStorage.setItem("token", btoa(result.data.token));
+          sessionStorage.setItem("token", result.data.token);
           this.userService.isLoggedIn.next(true);
           this.userService.currentUser.next(result.data.data);
           localStorage.setItem("currentUser", JSON.stringify(result.data.data));
