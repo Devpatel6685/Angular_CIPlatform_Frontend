@@ -41,13 +41,17 @@ export class ForgotPasswordComponent {
         if (result.code === StatusCodes.Ok) {
           this.forgotPasswordSuccess = true;
           this.snackBar.open('Email Sent', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
-          this.router.navigate(["/"]);
+          this.redirectToUrl("/");
         } else {
           this.forgotPasswordSuccess = false;
           this.snackBar.open('Failed', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
         }
       });
     }
+  }
+
+  redirectToUrl(url: string) {
+    this.router.navigate([url]);
   }
 
   ngOnDestroy(): void {

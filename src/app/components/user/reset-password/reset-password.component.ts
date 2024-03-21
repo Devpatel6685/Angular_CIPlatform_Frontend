@@ -94,17 +94,19 @@ export class ResetPasswordComponent implements OnInit {
           if (result.code === StatusCodes.Ok) {
             this.resetPasswordSuccess = true;
             this.snackBar.open('Password reset Successfully', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
-            this.router.navigate(['/']);
+            this.redirectToUrl("/");
           } else {
             this.resetPasswordSuccess = false;
             this.snackBar.open('Password reset UnSuccessfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
           }
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 3000);
         });
     }
   };
+
+  redirectToUrl(url: string) {
+    this.router.navigate([url]);
+  }
+
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
