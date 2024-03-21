@@ -50,9 +50,12 @@ export class LoginComponent {
           localStorage.setItem("currentUser", JSON.stringify(result.data.data));
           this.redirectToUrl("/mission-listing");
         }
+        else
+        {
+          this.snackBar.open('Invalid Credentials!', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
+        }
       });
     }
-    this.snackBar.open('Login Failed', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
   }
 
   redirectToUrl(url: string) {

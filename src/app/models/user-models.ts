@@ -13,6 +13,14 @@ export interface LoginDTO {
   password: string;
 }
 
+export interface RegisterDTO {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  password:string;
+}
+
 export interface ResetPasswordDTO {
   token: string;
   password: string;

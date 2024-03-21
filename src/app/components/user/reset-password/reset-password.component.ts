@@ -9,7 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomCarouselComponent } from '../custom-carousel/custom-carousel.component';
 import { resetPasswordForm } from '../../../models/user-formType.models';
 import { Subject, map, takeUntil } from 'rxjs';
@@ -62,7 +62,8 @@ export class ResetPasswordComponent implements OnInit {
     private userService: UserService,
     public commonFunctionService: CommonFunctionService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   get ctrl(): resetPasswordForm {
@@ -73,10 +74,16 @@ export class ResetPasswordComponent implements OnInit {
     this.token = this.activatedRoute.snapshot.paramMap.get('token') as string;
   }
 
+  checkpassword(){
+    if(this.ctrl.password.value != this.ctrl.confirmPassword.value){
+      this.ctrl.confirmPassword.setErrors({ invalid: true });
+    }
+  }
+
   submit = (): void => {
     if (this.resetPassForm.valid) {
       let obj: ResetPasswordDTO = {
-        password: this.resetPassForm.get('password')?.value as string,
+        password: this.ctrl.password.value as string,
         token: this.token,
       };
       this.userService
@@ -86,8 +93,11 @@ export class ResetPasswordComponent implements OnInit {
           this.message = result.messages ? result.messages[0] : this.message;
           if (result.code === StatusCodes.Ok) {
             this.resetPasswordSuccess = true;
+            this.snackBar.open('Password reset Successfully', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+            this.router.navigate(['/']);
           } else {
             this.resetPasswordSuccess = false;
+            this.snackBar.open('Password reset UnSuccessfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
           }
           setTimeout(() => {
             this.router.navigate(['/']);

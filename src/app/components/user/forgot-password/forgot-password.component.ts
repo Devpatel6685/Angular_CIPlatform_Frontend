@@ -32,7 +32,7 @@ export class ForgotPasswordComponent {
     email: new FormControl("", [Validators.required, Validators.email]),
   });
 
-  constructor(public commonFunctionService:CommonFunctionService, private router: Router,private userService : UserService, private snackBar: MatSnackBar,) { }
+  constructor(public commonFunctionService:CommonFunctionService, private router: Router,private userService : UserService, private snackBar: MatSnackBar) { }
 
   submit = (): void => {
     if (this.forgotPassForm.valid) {

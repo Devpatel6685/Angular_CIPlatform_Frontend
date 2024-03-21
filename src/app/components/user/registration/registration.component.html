@@ -58,21 +58,16 @@
 
                 <mat-form-field appearance="outline" class="example-full-width" class="pb-3">
                     <mat-label>Confirm Password</mat-label>
-                    <input type="text" matInput formControlName="confirmPassword">
+                    <input type="text" matInput formControlName="confirmPassword" (keyup)="checkpassword()">
                     @if (commonFunctionService.controlValidity(registerForm, 'confirmPassword')) {
                     <mat-error>
                         {{ commonFunctionService.getErrorMessage(registerForm, 'confirmPassword', 'Confirm Password') }}
                     </mat-error>
                     }
-                    @if ((registerForm.value.password != registerForm.value.password) &&
-                    !commonFunctionService.controlValidity(registerForm, 'confirmPassword')){
-                    <mat-error>
-                        Password and Confirm Password must match.
-                    </mat-error>
-                    }
                 </mat-form-field>
 
-                <button mat-stroked-button extended color="warn" class="outline-btn" (click)="submit()"> Register</button>
+                <button mat-stroked-button extended color="warn" class="outline-btn" (click)="submit()">
+                    Register</button>
                 <div class="d-flex flex-column justify-content-center align-items-center mt-3">
                     <a class="link-dark link-underline-opacity-0" [routerLink]="['/forgot-password']">Lost your
                         password?</a>

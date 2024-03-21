@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoginDTO, ResetPasswordDTO } from '../models/user-models';
+import { LoginDTO, RegisterDTO, ResetPasswordDTO } from '../models/user-models';
 import { ApiResponseDTO } from '../models/apiresponse-model';
 import { baseAPIUrl, endPoint } from '../Common/constant';
 
@@ -16,13 +16,12 @@ export class UserService {
   constructor(private http: HttpClient) { }
   private url:string = "";
   
-  CreateUser(model:any) {
-    return this.http.post("https://localhost:7034/api/User/register",model);
+  CreateUser(model:RegisterDTO): Observable<ApiResponseDTO> {
+    return this.http.post<ApiResponseDTO>(baseAPIUrl + endPoint.Register,model);
   }
   
-  IsUserExist(email:string | null){
-    this.url = "https://localhost:7034/api/User/IsUserExist?email=" + email;
-    return this.http.get(this.url);
+  IsUserExist(email:string | null):Observable<ApiResponseDTO>{
+    return this.http.get<ApiResponseDTO>(baseAPIUrl + endPoint.IsUserExist + "?email=" + email);
   }
 
   Login(body: LoginDTO): Observable<ApiResponseDTO> {

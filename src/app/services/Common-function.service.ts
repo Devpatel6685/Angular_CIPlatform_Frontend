@@ -46,6 +46,11 @@ export class CommonFunctionService {
     {
       return 'The user with the above email address already exists.';
     }
+
+    if(control?.hasError('invalid'))
+    {
+      return 'Password and Confirm Password must match.';
+    }
     return '';
   }
 

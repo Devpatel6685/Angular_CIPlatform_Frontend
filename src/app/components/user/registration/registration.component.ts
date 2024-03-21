@@ -11,6 +11,9 @@ import { CommonFunctionService } from '../../../services/Common-function.service
 import { Console } from 'console';
 import { UserService } from '../../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { StatusCodes } from '../../../Common/constant';
+import { RegisterDTO } from '../../../models/user-models';
 
 @Component({
   selector: 'app-registration',
@@ -20,6 +23,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent {
+  private ngUnsubscribe = new Subject<void>();
 
   registerForm: FormGroup<registrationForm> = new FormGroup<registrationForm>({
     firstName: new FormControl("", [Validators.required]),
@@ -37,26 +41,44 @@ export class RegistrationComponent {
     private userservice: UserService
   ) { }
 
+  get ctrl(): registrationForm {
+    return this.registerForm.controls;
+  }
+
+  checkpassword() {
+    if (this.ctrl.password.value != this.ctrl.confirmPassword.value) {
+      this.ctrl.confirmPassword.setErrors({ invalid: true });
+    }
+  }
+
   submit = (): void => {
-    this.userservice.IsUserExist(this.registerForm.getRawValue().email).subscribe(res => {
-      if (res)
+    this.userservice.IsUserExist(this.ctrl.email.value).subscribe((result) => {
+      if (result.code === StatusCodes.Ok) {
         this.registerForm.controls.email.setErrors({ incorrect: true });
+      }
     });
 
     if (this.registerForm.valid) {
-
-      this.userservice.CreateUser(this.registerForm.getRawValue()).subscribe((res) => {
-        if (res == null) {
-          console.log('success')
-        }
-      });
-      this.snackBar.open('Registration Successful', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
-      this.redirectToUrl("/");
+      const data: RegisterDTO = { ...this.registerForm.value } as RegisterDTO;
+      this.userservice.CreateUser(data).pipe(takeUntil(this.ngUnsubscribe)).subscribe((result) => {
+          if (result.code === StatusCodes.Ok) {
+            this.snackBar.open('Registration Successfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+            this.redirectToUrl("/");
+          }
+          else{
+            this.snackBar.open('Registration UnSuccessfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+          }
+        });
     }
   }
 
   redirectToUrl(url: string) {
     this.router.navigate([url]);
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }
