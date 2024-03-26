@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [RouterLink,FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent, CommonModule],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent, CommonModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
@@ -32,19 +32,20 @@ export class ForgotPasswordComponent {
     email: new FormControl("", [Validators.required, Validators.email]),
   });
 
-  constructor(public commonFunctionService:CommonFunctionService, private router: Router,private userService : UserService, private snackBar: MatSnackBar) { }
+  constructor(public commonFunctionService: CommonFunctionService, private router: Router, private userService: UserService, private snackBar: MatSnackBar) { }
 
   submit = (): void => {
     if (this.forgotPassForm.valid) {
       this.userService.ForgotPassword(this.forgotPassForm.get("email")?.value).pipe(takeUntil(this.ngUnsubscribe)).subscribe(result => {
         this.message = (result.messages) ? result.messages[0] : this.message;
+        
         if (result.code === StatusCodes.Ok) {
           this.forgotPasswordSuccess = true;
-          this.snackBar.open('Email Sent', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
+          this.snackBar.open('Email Sent', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
           this.redirectToUrl("/");
         } else {
           this.forgotPasswordSuccess = false;
-          this.snackBar.open('Failed', 'OK', { duration: 3000,horizontalPosition: 'right',verticalPosition: 'top'});
+          this.snackBar.open('Failed', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
         }
       });
     }

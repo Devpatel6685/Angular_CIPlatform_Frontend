@@ -61,14 +61,14 @@ export class RegistrationComponent {
     if (this.registerForm.valid) {
       const data: RegisterDTO = { ...this.registerForm.value } as RegisterDTO;
       this.userservice.CreateUser(data).pipe(takeUntil(this.ngUnsubscribe)).subscribe((result) => {
-          if (result.code === StatusCodes.Ok) {
-            this.snackBar.open('Registration Successfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
-            this.redirectToUrl("/");
-          }
-          else{
-            this.snackBar.open('Registration UnSuccessfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
-          }
-        });
+        if (result.code === StatusCodes.Ok) {
+          this.snackBar.open('Registration Successfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+          this.redirectToUrl("/");
+        }
+        else {
+          this.snackBar.open('Registration UnSuccessfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+        }
+      });
     }
   }
 
