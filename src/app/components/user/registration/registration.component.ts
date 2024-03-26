@@ -80,5 +80,4 @@ export class RegistrationComponent {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
-
 }

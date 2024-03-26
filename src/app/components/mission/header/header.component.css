@@ -1,0 +1,9 @@
+.header-profile-img {
+  height: 100%;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.ml-0 {
+  margin-left: 0px !important;
+}

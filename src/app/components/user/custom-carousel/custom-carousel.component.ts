@@ -15,7 +15,7 @@ export class CustomCarouselComponent {
     {
       bannerId: 1,
       image: '/assets/img/Animal-welfare-&-save-birds-campaign-1.png',
-      text: 'abcd',
+      text: 'Animal-welfare',
       sortOrder: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -24,7 +24,7 @@ export class CustomCarouselComponent {
     {
       bannerId: 2,
       image: '/assets/img/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-4.png',
-      text: 'abcd',
+      text: 'CSR-initiative-stands-for-Coffee',
       sortOrder: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -33,7 +33,7 @@ export class CustomCarouselComponent {
     {
       bannerId: 3,
       image: '/assets/img/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png',
-      text: 'abcd',
+      text: 'Education-Supplies-for-Every',
       sortOrder: 3,
       createdAt: new Date(),
       updatedAt: new Date(),

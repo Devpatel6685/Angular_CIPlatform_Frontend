@@ -18,10 +18,27 @@ export interface RegisterDTO {
   lastName: string;
   phoneNumber: string;
   email: string;
-  password:string;
+  password: string;
 }
 
 export interface ResetPasswordDTO {
   token: string;
   password: string;
+}
+
+export interface CurrentUserDTO {
+  userId: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  avatar: string;
+  whyIVolunteer: string;
+  employeeId: string;
+  department: string;
+  profileText: string;
+  linkedInUrl: string;
+  title: string;
+  status: boolean;
 }
