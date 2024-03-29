@@ -16,7 +16,7 @@ import { CurrentUserDTO } from '../../../models/user-models';
 })
 export class HeaderComponent {
   currentUserData: CurrentUserDTO;
-  
+
   constructor(private userService: UserService, private router: Router) {
     this.currentUserData = this.userService.currentUserValue();
   }

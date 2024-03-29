@@ -1,9 +1,235 @@
 <div class="container">
     <app-header />
 </div>
+<mat-divider />
 <div class="container">
-    <app-second-header />
+    <app-second-header #customHeader />
 </div>
-<mat-card>
-    
-</mat-card>
+<mat-divider />
+<div class="container">
+    <div class="d-flex pt-4">
+        <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions</strong></h1>
+        <mat-form-field class="ms-auto me-2" appearance="outline">
+            <mat-label>Sort By</mat-label>
+            <mat-select [formControl]="sortBy">
+                @for (item of sortByList; track item) {
+                <mat-option [value]="item">{{item}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <button mat-fab class="ms-2 bg-transparent" title="Grid View" (click)="isGridView = true">
+            <mat-icon>grid_view</mat-icon></button>
+        <button mat-fab class="ms-2 bg-transparent" title="List View" (click)="isGridView = false">
+            <mat-icon>density_medium</mat-icon></button>
+    </div>
+</div>
+@if (isGridView) {
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 py-2">
+        @for (item of missionList; track item) {
+        <div class="col pb-4">
+            <mat-card>
+                <img mat-card-image class="position-relative card-img"
+                    [src]="item.missionImagePath + item.missionImage" />
+                <div class="position-absolute location-tag">
+                    <span
+                        class="bg-dark opacity-75 d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                        <mat-icon>location_on</mat-icon>
+                        {{ item.city }}
+                    </span>
+                </div>
+                <div class="position-absolute d-flex flex-column g-1 icon-tags">
+                    <button mat-fab class="bg-dark opacity-75 text-white">
+                        <ng-container *ngIf="item.isFavourite; else notFavourite">
+                            <mat-icon style="color: red">favorite</mat-icon>
+                        </ng-container>
+                        <ng-template #notFavourite>
+                            <mat-icon>favorite_outline</mat-icon>
+                        </ng-template></button>
+                    <button mat-fab disabled class="bg-dark opacity-75 text-white mt-2">
+                        <mat-icon>group_add</mat-icon></button>
+                </div>
+                <span
+                    class="d-flex bg-white position-absolute opacity-100 justify-content-center align-items-center rounded-pill p-2 theme-tag">
+                    {{ item.theme }}
+                </span>
+                <mat-card-content class="p-3">
+                    <h1>{{item.title}}</h1>
+                    <p>
+                        {{ item.shortDescription}}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span> {{ item.organizationName }} </span>
+                        <span>
+                            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                <mat-icon>{{ item.rating >= star ? 'star' : 'star_border'}}</mat-icon>
+                            </ng-container>
+                        </span>
+                    </div>
+                </mat-card-content>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="border-bottom w-100"></div>
+                    <span class="bg-white opacity-100 rounded-pill p-2 text-nowrap border">
+                        From {{ item.startDate | date:'dd/MM/yyyy' }} until {{ item.endDate | date:'dd/MM/yyyy' }}
+                    </span>
+                    <div class="border-bottom w-100"></div>
+                </div>
+                <mat-card-content>
+                    <div class="d-flex">
+                        <mat-icon class="ms-2 mt-1">person_outline</mat-icon>
+                        <div>
+                            <span>{{ item.seatsLeft }}</span>
+                            <br>
+                            <span class="small fw-light">
+                                Seats Left
+                            </span>
+                        </div>
+                        <mat-icon class="ms-auto mt-1 me-1">access_time</mat-icon>
+                        <div>
+                            <span>{{ item.endDate | date:'dd/MM/yyyy' }}</span>
+                            <br>
+                            <span class="small fw-light">
+                                Deadline
+                            </span>
+                        </div>
+
+                    </div>
+                </mat-card-content>
+
+                <mat-divider />
+                <mat-card-content class="d-flex justify-content-center pt-3">
+                    <button mat-stroked-button extended color="warn" class="outline-btn"
+                        (click)="redirectToVolunteer()">
+                        <span class="d-flex justify-content-center align-items-center">
+                            Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
+                        </span>
+                    </button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        }
+    </div>
+</div>
+}
+@else {
+<div class="container py-2">
+    @for (item of missionList; track item) {
+    <div class="py-3">
+        <mat-card class="d-flex flex-row">
+            <img mat-card-image class="list-img position-relative w-25"
+                [src]="item.missionImagePath + item.missionImage" />
+            <!-- <div class="position-absolute mt-3">
+                 <span class="bg-success rounded-start rounded-5 text-white p-2">
+                    Applied
+                </span>
+            </div> -->
+            <div class="position-absolute mt-2 end-76">
+                <span
+                    class="bg-dark opacity-75 d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                    <mat-icon>location_on</mat-icon>
+                    {{ item.city }}
+                </span>
+            </div>
+            <div class="position-absolute d-flex flex-column g-1 top-50 end-76">
+                <button mat-fab class="bg-dark opacity-75 text-white">
+                    <mat-icon>{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
+                <button mat-fab disabled class="bg-dark opacity-75 text-white mt-2">
+                    <mat-icon>group_add</mat-icon></button>
+
+            </div>
+            <span
+                class="d-flex bg-white position-absolute opacity-100 justify-content-center align-items-center rounded-pill p-2 theme-list-tag">
+                {{ item.theme }}
+            </span>
+            <div class="w-75">
+                <mat-card-content>
+                    <div class="d-flex">
+                        <span class="d-flex justify-content-between align-items-center">
+                            <mat-icon>location_on</mat-icon>
+                            {{ item.city }}
+                        </span>
+                        <span class="d-flex justify-content-between align-items-center ms-3">
+                            <mat-icon class="me-1">language</mat-icon>
+                            {{ item.theme }}
+                        </span>
+                        <span class="d-flex justify-content-between align-items-center ms-3">
+                            <mat-icon class="me-2">groups</mat-icon>
+                            {{ item.organizationName }}
+                        </span>
+                        <span class="ms-auto">
+                            <mat-icon>{{ item.rating > 1 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon>{{ item.rating > 2 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon>{{ item.rating > 3 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon>{{ item.rating > 4 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon>{{ item.rating > 5 ? 'star' : 'star_border'}}</mat-icon>
+                        </span>
+                    </div>
+                    <div class="py-4">
+                        <h1>{{item.title}}</h1>
+                        <p>
+                            {{ item.shortDescription}}
+                        </p>
+                    </div>
+                    <div class="d-flex">
+                        <mat-icon>person_outline</mat-icon>
+                        <div>
+                            <span>{{ item.seatsLeft }}</span>
+                            <br>
+                            <span class="small fw-light">
+                                Seats Left
+                            </span>
+                        </div>
+                        <mat-icon class="ms-4 mt-1 me-1">access_time</mat-icon>
+                        <div>
+                            <span>{{ item.endDate | date:'dd/MM/yyyy' }}</span>
+                            <br>
+                            <span class="small fw-light">
+                                Registration Deadline
+                            </span>
+                        </div>
+                        <mat-icon class="ms-4 mt-1 me-1">calendar_month</mat-icon>
+                        <div>
+                            <span>From {{ item.startDate | date:'dd/MM/yyyy' }}</span>
+                            <br>
+                            <span>Until {{ item.endDate | date:'dd/MM/yyyy' }}</span>
+                        </div>
+                        <mat-icon class="ms-4 mt-1 me-1">handyman</mat-icon>
+                        <div>
+                            <span>Skills</span>
+                            <br>
+                            <span class="small fw-light">
+                                {{item.skill}}
+                            </span>
+                        </div>
+                        <button mat-stroked-button extended color="warn" class="outline-btn ms-auto"
+                            (click)="redirectToVolunteer()">
+                            <span class="d-flex justify-content-center align-items-center">
+                                Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
+                            </span>
+                        </button>
+                    </div>
+                </mat-card-content>
+            </div>
+        </mat-card>
+    </div>
+    }
+</div>
+}
+
+<nav aria-label="Page navigation example" *ngIf="missionList.length > 12">
+    <ul class="pagination  justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -25,7 +25,7 @@ import { ok } from 'assert';
 export class LoginComponent {
 
   private ngUnsubscribe = new Subject<void>();
-
+  private logoutTimer: any;
   loginForm: FormGroup<loginForm> = new FormGroup<loginForm>({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', Validators.required)
@@ -50,6 +50,7 @@ export class LoginComponent {
           this.userService.currentUser.next(result.data.data);
           localStorage.setItem("currentUser", JSON.stringify(result.data.data));
           this.redirectToUrl("/mission-listing");
+          // this.startLogoutTimer();
         }
         else {
           this.snackBar.open('Invalid Credentials!', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
@@ -57,6 +58,30 @@ export class LoginComponent {
       });
     }
   }
+
+  // startLogoutTimer() {
+  //   this.clearLogoutTimer();
+  
+  //   this.logoutTimer = setTimeout(() => {
+  //     this.logOut();
+  //   }, 15 * 60 * 1000);
+  // }
+
+  // clearLogoutTimer() {
+  //   if (this.logoutTimer) {
+  //     clearTimeout(this.logoutTimer);
+  //     this.logoutTimer = null;
+  //   }
+  // }
+  
+  // logOut() {
+  //   this.clearLogoutTimer();
+  //   this.userService.isLoggedIn.next(false);
+  //   this.userService.currentUser.next(null);
+  //   sessionStorage.clear();
+  //   localStorage.clear();
+  //   this.router.navigateByUrl('/');
+  // }
 
   redirectToUrl(url: string) {
     this.router.navigate([url]);

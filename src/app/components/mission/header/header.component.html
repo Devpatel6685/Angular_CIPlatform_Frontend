@@ -5,14 +5,14 @@
             Privacy Policy
         </span>
     </button>
-    <button class="ms-auto pe-0" mat-button [matMenuTriggerFor]="profileMenu">
+    <button class="ms-auto" mat-button [matMenuTriggerFor]="Menu">
         <span class="d-flex justify-content-center align-items-center">
-            <img [src]="(currentUserData != null && currentUserData.avatar) ? currentUserData.avatar : 'assets/img/volunteer4.png'"
-                class="header-profile-img me-1" />
+            <img [src]="(currentUserData != null && currentUserData.avatar) ? currentUserData.avatar : 'assets/img/volunteer1.png'"
+                class="profile-img me-1" />
             {{currentUserData.firstname + " " + currentUserData.lastname}} <mat-icon>expand_more</mat-icon>
         </span>
     </button>
-    <mat-menu #profileMenu="matMenu">
+    <mat-menu #Menu="matMenu">
         <button mat-menu-item>My Profile</button>
         <button mat-menu-item (click)="logOut()">Log Out</button>
     </mat-menu>

@@ -8,35 +8,38 @@
         <mat-form-field class="static-select" appearance="fill">
             <mat-label>Country</mat-label>
             <mat-select formControlName="countryId" multiple>
-                <mat-option [value]="1">India</mat-option>
-                <mat-option [value]="1">Canada</mat-option>
+                @for (item of countryList; track item) {
+                <mat-option [value]="item.countryId">{{item.name}}</mat-option>
+                }
             </mat-select>
         </mat-form-field>
         <mat-divider [vertical]="true" />
         <mat-form-field class="static-select" appearance="fill">
             <mat-label>City</mat-label>
             <mat-select formControlName="cityId" multiple>
-                <mat-option [value]="1">Ahmedabad</mat-option>
-                <mat-option [value]="2">Gandhinagar</mat-option>
+                @for (item of cityList; track item) {
+                <mat-option [value]="item.cityId">{{item.name}}</mat-option>
+                }
             </mat-select>
         </mat-form-field>
         <mat-divider [vertical]="true" />
         <mat-form-field class="static-select" appearance="fill">
             <mat-label>Theme</mat-label>
             <mat-select formControlName="themeId" multiple>
-                <mat-option [value]="1">Enviroment</mat-option>
-                <mat-option [value]="2">Nutrition</mat-option>
-
+                @for (item of themeList; track item) {
+                <mat-option [value]="item.missionThemeId">{{item.title}}</mat-option>
+                }
             </mat-select>
         </mat-form-field>
         <mat-divider [vertical]="true" />
         <mat-form-field class="static-select" appearance="fill">
             <mat-label>Skills</mat-label>
             <mat-select formControlName="skillId" multiple>
-                <mat-option [value]="1">Dance</mat-option>
-                <mat-option [value]="1">Sport</mat-option>
+                @for (item of skillList; track item) {
+                <mat-option [value]="item.skillId">{{item.skillName}}</mat-option>
+                }
             </mat-select>
         </mat-form-field>
-        <mat-divider [vertical]="true"/>
+        <mat-divider [vertical]="true" />
     </div>
 </form>

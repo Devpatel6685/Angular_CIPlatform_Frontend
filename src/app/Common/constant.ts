@@ -6,6 +6,14 @@ export const endPoint = {
     Login: "User/Login",
     ForgotPassword: "User/ForgotPassword",
     ResetPassword: "User/ResetPassword",
+    GetAllBanners: "Common/GetAllBanners",
+    GetAllUsers: "Common/GetAllUsers",
+    GetAllCountries: "Common/GetAllCountries",
+    GetCitiesByCountry: "Common/GetCitiesByCountry/",
+    GetAllThemes: "Common/GetAllThemes",
+    GetAllSkills: "Common/GetAllSkills",
+    AddToFavourite: "Mission/AddToFavourite",
+    GetMissionsByFilter: "Mission/GetMissionsByFilter",
 };
 
 export const StatusCodes = {

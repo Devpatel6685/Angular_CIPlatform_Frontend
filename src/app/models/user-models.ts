@@ -27,7 +27,7 @@ export interface ResetPasswordDTO {
 }
 
 export interface CurrentUserDTO {
-  userId: number;
+  id: number;
   firstname: string;
   lastname: string;
   email: string;

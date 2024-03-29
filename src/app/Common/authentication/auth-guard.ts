@@ -9,5 +9,6 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     inject(UserService).isLoggedIn.subscribe(res => {
         isLoggedIn = res;
     });
-    return isLoggedIn || currentUser != null ? true : inject(Router).navigateByUrl('/');
+    
+    return isLoggedIn  || currentUser != null ? true : inject(Router).navigateByUrl('/');
 };
