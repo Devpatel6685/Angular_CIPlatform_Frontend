@@ -39,8 +39,6 @@ import { CommonService } from '../../../services/common.service';
   styleUrl: './second-header.component.css',
 })
 export class SecondHeaderComponent implements OnInit {
-  @Output() filterMissions = new EventEmitter<MissionSearchDTO>();
-  @Output() filterOptions = new EventEmitter<FilterOptionDTO[]>();
 
   countryList: CountryDTO[] = [];
   cityList: CityDTO[] = [];

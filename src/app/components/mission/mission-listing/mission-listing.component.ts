@@ -48,7 +48,6 @@ import { CommonService } from '../../../services/common.service';
   ],
 })
 export class MissionListingComponent implements OnInit {
-  @ViewChild('customHeader') customHeader!: SecondHeaderComponent;
 
   sortBy = new FormControl('');
   sortByList: string[] = ['Newest', 'Oldest'];
