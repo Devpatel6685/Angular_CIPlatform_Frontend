@@ -24,6 +24,10 @@ export class UserService {
     return this.http.get<ApiResponseDTO>(baseAPIUrl + endPoint.IsUserExist + "?email=" + email);
   }
 
+  CheckPassWord(token:string | null, password: string | null):Observable<ApiResponseDTO>{
+    return this.http.get<ApiResponseDTO>(baseAPIUrl + endPoint.CheckPassWord + "?token=" + token + "&password=" + password);
+  }
+
   Login(body: LoginDTO): Observable<ApiResponseDTO> {
     return this.http.post<ApiResponseDTO>(baseAPIUrl + endPoint.Login, body);
   }
@@ -35,7 +39,7 @@ export class UserService {
   ResetPassword(body: ResetPasswordDTO): Observable<ApiResponseDTO> {
     return this.http.post<ApiResponseDTO>(baseAPIUrl + endPoint.ResetPassword, body);
   }
-
+  
   public currentUserValue(): any {
     const user = localStorage.getItem('currentUser');
     if (user) {

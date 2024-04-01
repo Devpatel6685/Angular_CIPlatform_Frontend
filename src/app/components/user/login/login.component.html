@@ -16,7 +16,9 @@
                 </mat-form-field>
                 <mat-label>Password</mat-label>
                 <mat-form-field appearance="outline">
-                    <input type="text" matInput formControlName="password">
+                    <input [type]="hide ? 'password' : 'text'" matInput formControlName="password">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
                     @if (commonFunctionService.controlValidity(loginForm, 'password')) {
                     <mat-error>
                         {{ commonFunctionService.getErrorMessage(loginForm, 'password', 'Password') }}

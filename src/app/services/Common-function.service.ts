@@ -25,9 +25,9 @@ export class CommonFunctionService {
 
     if (control?.hasError('pattern')) {
       if(formField == 'phoneNumber'){
-        return `${controlName} must be at least 10 digits long`;
+        return `${controlName} must be 10 digits.`;
       }
-      return 'Invalid format. Password must contain at least one uppercase letter and one digit.';
+      return 'Invalid format! Password must contain at least one uppercase letter and one digit.';
     }
 
     if (control?.hasError('minlength')) {
@@ -51,6 +51,12 @@ export class CommonFunctionService {
     {
       return 'Password and Confirm Password must match.';
     }
+
+    if(control?.hasError('oldpassword'))
+    {
+      return 'New Password should not be same as Previous password.';
+    }
+
     return '';
   }
 

@@ -20,6 +20,7 @@ import { UserService } from '../../../services/user.service';
 import { ResetPasswordDTO } from '../../../models/user-models';
 import { StatusCodes } from '../../../Common/constant';
 import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-reset-password',
@@ -34,6 +35,7 @@ import { RouterLink } from '@angular/router';
     MatSnackBarModule,
     CustomCarouselComponent,
     CommonModule,
+    MatIcon
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
@@ -43,6 +45,8 @@ export class ResetPasswordComponent implements OnInit {
   token: string = '';
   resetPasswordSuccess = false;
   message: string = '';
+  passwordHide = true;
+  confirmPasswordHide = true;
 
   resetPassForm: FormGroup<resetPasswordForm> =
     new FormGroup<resetPasswordForm>({
@@ -81,6 +85,13 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   submit = (): void => {
+
+    this.userService.CheckPassWord(this.token, this.ctrl.password.value).subscribe((result) => {
+      if (result.code === StatusCodes.Ok) {
+        this.ctrl.password.setErrors({ oldpassword: true });
+      }
+    });
+
     if (this.resetPassForm.valid) {
       let obj: ResetPasswordDTO = {
         password: this.ctrl.password.value as string,
@@ -97,7 +108,7 @@ export class ResetPasswordComponent implements OnInit {
             this.redirectToUrl("/");
           } else {
             this.resetPasswordSuccess = false;
-            this.snackBar.open('Password reset UnSuccessfull', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+            this.snackBar.open('Token is Expired! Please resend the email.', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
           }
         });
     }

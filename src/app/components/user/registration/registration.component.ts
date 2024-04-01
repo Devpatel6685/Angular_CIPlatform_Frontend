@@ -14,17 +14,20 @@ import { Router, RouterLink } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { StatusCodes } from '../../../Common/constant';
 import { RegisterDTO } from '../../../models/user-models';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent,MatIcon],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent {
   private ngUnsubscribe = new Subject<void>();
-
+  passwordHide = true;
+  confirmPasswordHide = true;
+  
   registerForm: FormGroup<registrationForm> = new FormGroup<registrationForm>({
     firstName: new FormControl("", [Validators.required]),
     lastName: new FormControl("", [Validators.required]),

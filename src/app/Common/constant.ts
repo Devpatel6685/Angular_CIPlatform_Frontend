@@ -6,6 +6,7 @@ export const endPoint = {
     Login: "User/Login",
     ForgotPassword: "User/ForgotPassword",
     ResetPassword: "User/ResetPassword",
+    CheckPassWord:"User/CheckPassWord",
     GetAllBanners: "Common/GetAllBanners",
     GetAllUsers: "Common/GetAllUsers",
     GetAllCountries: "Common/GetAllCountries",

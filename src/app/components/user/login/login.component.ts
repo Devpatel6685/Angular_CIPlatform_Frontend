@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,13 +12,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { LoginDTO } from '../../../models/user-models';
 import { UserService } from '../../../services/user.service';
 import { RouterLink } from '@angular/router';
-import { ok } from 'assert';
+import { MatIcon } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent],
+  imports: [RouterLink, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSnackBarModule, CustomCarouselComponent,MatIcon],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -26,6 +26,8 @@ export class LoginComponent {
 
   private ngUnsubscribe = new Subject<void>();
   private logoutTimer: any;
+  hide = true;
+
   loginForm: FormGroup<loginForm> = new FormGroup<loginForm>({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', Validators.required)
