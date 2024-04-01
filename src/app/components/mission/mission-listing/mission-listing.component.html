@@ -3,9 +3,21 @@
 </div>
 <mat-divider />
 <div class="container">
-    <app-second-header #customHeader />
+    <app-second-header (filterMissions)="onFilterMissionChange($event)" (filterOptions)="getOptions($event)"
+    #customHeader />
 </div>
 <mat-divider />
+<div class="container d-flex mt-3 flex-wrap">
+    <mat-chip *ngFor="let item of filterOptions" class="ms-2" [removable]="true" (removed)="clearOptions(item)">
+        {{ item.name }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <mat-chip *ngIf="filterOptions.length > 0" class="ms-2" [removable]="true" (removed)="clearAllOptions()">
+        <span>Clear All</span>
+        <mat-icon matChipRemove>close</mat-icon>
+    </mat-chip>
+</div>
 <div class="container">
     <div class="d-flex pt-4">
         <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions</strong></h1>
@@ -26,6 +38,10 @@
 @if (isGridView) {
 <div class="container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 py-2">
+        <ng-container *ngIf="missionList.length === 0; else missionsAvailable">
+            <p class="no-mission-text">No mission found</p>
+        </ng-container>
+        <ng-template #missionsAvailable>
         @for (item of missionList; track item) {
         <div class="col pb-4">
             <mat-card>
@@ -33,20 +49,20 @@
                     [src]="item.missionImagePath + item.missionImage" />
                 <div class="position-absolute location-tag">
                     <span
-                        class="bg-dark opacity-75 d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                        class="bg-dark  d-flex justify-content-center align-items-center rounded-pill text-white p-1">
                         <mat-icon>location_on</mat-icon>
                         {{ item.city }}
                     </span>
                 </div>
                 <div class="position-absolute d-flex flex-column g-1 icon-tags">
-                    <button mat-fab class="bg-dark opacity-75 text-white">
+                    <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
                         <ng-container *ngIf="item.isFavourite; else notFavourite">
                             <mat-icon style="color: red">favorite</mat-icon>
                         </ng-container>
                         <ng-template #notFavourite>
                             <mat-icon>favorite_outline</mat-icon>
                         </ng-template></button>
-                    <button mat-fab disabled class="bg-dark opacity-75 text-white mt-2">
+                    <button mat-fab disabled class="bg-dark text-white mt-3">
                         <mat-icon>group_add</mat-icon></button>
                 </div>
                 <span
@@ -108,6 +124,7 @@
             </mat-card>
         </div>
         }
+    </ng-template>
     </div>
 </div>
 }
@@ -125,15 +142,15 @@
             </div> -->
             <div class="position-absolute mt-2 end-76">
                 <span
-                    class="bg-dark opacity-75 d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                    class="bg-dark  d-flex justify-content-center align-items-center rounded-pill text-white p-1">
                     <mat-icon>location_on</mat-icon>
                     {{ item.city }}
                 </span>
             </div>
             <div class="position-absolute d-flex flex-column g-1 top-50 end-76">
-                <button mat-fab class="bg-dark opacity-75 text-white">
+                <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
                     <mat-icon>{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
-                <button mat-fab disabled class="bg-dark opacity-75 text-white mt-2">
+                <button mat-fab disabled class="bg-dark  text-white mt-2">
                     <mat-icon>group_add</mat-icon></button>
 
             </div>
@@ -215,21 +232,3 @@
     }
 </div>
 }
-
-<nav aria-label="Page navigation example" *ngIf="missionList.length > 12">
-    <ul class="pagination  justify-content-center">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>

@@ -1,36 +1,42 @@
-  .location-tag {
-    right: 1rem;
-    top: 1rem;
-  }
-  
-  .icon-tags {
-    right: 1rem;
-    top: 175px;
-  }
-  
-  .theme-tag {
-    left: 40%;
-    top: 315px;
-  }
-  
-  .card-img {
-    height: 330px;
-  }
-  
-  .list-img {
-    height: 258px;
-  }
-  
-  .end-76 {
-    right: 76% !important;
-  }
-  
-  .theme-list-tag {
-    top: 93%;
-    left: 8.5%;
-  }
-  
-  button {
-    cursor: pointer;
-  }
-  
+.location-tag {
+  right: 1rem;
+  top: 1rem;
+}
+
+.no-mission-text {
+  font-size: 24px; /* adjust size as needed */
+  font-weight: bold;
+  color: orange;
+  justify-content: center;
+}
+
+.icon-tags {
+  right: 1rem;
+  top: 175px;
+}
+
+.theme-tag {
+  left: 40%;
+  top: 315px;
+}
+
+.card-img {
+  height: 330px;
+}
+
+.list-img {
+  height: 258px;
+}
+
+.end-76 {
+  right: 76% !important;
+}
+
+.theme-list-tag {
+  top: 93%;
+  left: 8.5%;
+}
+
+button {
+  cursor: pointer;
+}
