@@ -30,89 +30,89 @@
             <p class="no-mission-text text-center mt-5" style="width: 100%;">No mission found</p>
         </ng-container>
         <ng-template #missionsAvailable>
-        @for (item of missionList; track item) {
-        <div class="col pb-4">
-            <mat-card>
-                <img mat-card-image class="position-relative card-img"
-                    [src]="item.missionImagePath + item.missionImage" />
-                <div class="position-absolute location-tag">
-                    <span
-                        class="bg-dark  d-flex justify-content-center align-items-center rounded-pill text-white p-1">
-                        <mat-icon>location_on</mat-icon>
-                        {{ item.city }}
-                    </span>
-                </div>
-                <div class="position-absolute d-flex flex-column g-1 icon-tags">
-                    <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
-                        <ng-container *ngIf="item.isFavourite; else notFavourite">
-                            <mat-icon style="color: red">favorite</mat-icon>
-                        </ng-container>
-                        <ng-template #notFavourite>
-                            <mat-icon>favorite_outline</mat-icon>
-                        </ng-template></button>
-                    <button mat-fab disabled class="bg-dark text-white mt-3">
-                        <mat-icon>group_add</mat-icon></button>
-                </div>
-                <span
-                    class="d-flex bg-white position-absolute opacity-100 justify-content-center align-items-center rounded-pill p-2 theme-tag">
-                    {{ item.theme }}
-                </span>
-                <mat-card-content class="p-3">
-                    <h1>{{item.title}}</h1>
-                    <p>
-                        {{ item.shortDescription}}
-                    </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span> {{ item.organizationName }} </span>
-                        <span>
-                            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-                                <mat-icon>{{ item.rating >= star ? 'star' : 'star_border'}}</mat-icon>
+            @for (item of missionList; track item) {
+            <div class="col pb-4">
+                <mat-card>
+                    <img mat-card-image class="position-relative card-img"
+                        [src]="item.missionImagePath + item.missionImage" />
+                    <div class="position-absolute location-tag">
+                        <span
+                            class="bg-dark  d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                            <mat-icon>location_on</mat-icon>
+                            {{ item.city }}
+                        </span>
+                    </div>
+                    <div class="position-absolute d-flex flex-column g-1 icon-tags">
+                        <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
+                            <ng-container *ngIf="item.isFavourite; else notFavourite">
+                                <mat-icon style="color: red">favorite</mat-icon>
                             </ng-container>
-                        </span>
+                            <ng-template #notFavourite>
+                                <mat-icon>favorite_outline</mat-icon>
+                            </ng-template></button>
+                        <button mat-fab disabled class="bg-dark text-white mt-3">
+                            <mat-icon>group_add</mat-icon></button>
                     </div>
-                </mat-card-content>
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="border-bottom w-100"></div>
-                    <span class="bg-white opacity-100 rounded-pill p-2 text-nowrap border">
-                        From {{ item.startDate | date:'dd/MM/yyyy' }} until {{ item.endDate | date:'dd/MM/yyyy' }}
+                    <span
+                        class="d-flex bg-white position-absolute opacity-100 justify-content-center align-items-center rounded-pill p-2 theme-tag">
+                        {{ item.theme }}
                     </span>
-                    <div class="border-bottom w-100"></div>
-                </div>
-                <mat-card-content>
-                    <div class="d-flex">
-                        <mat-icon class="ms-2 mt-1">person_outline</mat-icon>
-                        <div>
-                            <span>{{ item.seatsLeft }}</span>
-                            <br>
-                            <span class="small fw-light">
-                                Seats Left
+                    <mat-card-content class="p-3">
+                        <h1>{{item.title}}</h1>
+                        <p>
+                            {{ item.shortDescription}}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span> {{ item.organizationName }} </span>
+                            <span>
+                                <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                    <mat-icon>{{ item.rating >= star ? 'star' : 'star_border'}}</mat-icon>
+                                </ng-container>
                             </span>
                         </div>
-                        <mat-icon class="ms-auto mt-1 me-1">access_time</mat-icon>
-                        <div>
-                            <span>{{ item.endDate | date:'dd/MM/yyyy' }}</span>
-                            <br>
-                            <span class="small fw-light">
-                                Deadline
-                            </span>
-                        </div>
-
-                    </div>
-                </mat-card-content>
-
-                <mat-divider />
-                <mat-card-content class="d-flex justify-content-center pt-3">
-                    <button mat-stroked-button extended color="warn" class="outline-btn"
-                        (click)="redirectToVolunteer()">
-                        <span class="d-flex justify-content-center align-items-center">
-                            Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
+                    </mat-card-content>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="border-bottom w-100"></div>
+                        <span class="bg-white opacity-100 rounded-pill p-2 text-nowrap border">
+                            From {{ item.startDate | date:'dd/MM/yyyy' }} until {{ item.endDate | date:'dd/MM/yyyy' }}
                         </span>
-                    </button>
-                </mat-card-content>
-            </mat-card>
-        </div>
-        }
-    </ng-template>
+                        <div class="border-bottom w-100"></div>
+                    </div>
+                    <mat-card-content>
+                        <div class="d-flex">
+                            <mat-icon class="ms-2 mt-1">person_outline</mat-icon>
+                            <div>
+                                <span>{{ item.seatsLeft }}</span>
+                                <br>
+                                <span class="small fw-light">
+                                    Seats Left
+                                </span>
+                            </div>
+                            <mat-icon class="ms-auto mt-1 me-1">access_time</mat-icon>
+                            <div>
+                                <span>{{ item.endDate | date:'dd/MM/yyyy' }}</span>
+                                <br>
+                                <span class="small fw-light">
+                                    Deadline
+                                </span>
+                            </div>
+
+                        </div>
+                    </mat-card-content>
+
+                    <mat-divider />
+                    <mat-card-content class="d-flex justify-content-center pt-3">
+                        <button mat-stroked-button extended color="warn" class="outline-btn"
+                            (click)="redirectToVolunteer()">
+                            <span class="d-flex justify-content-center align-items-center">
+                                Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
+                            </span>
+                        </button>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            }
+        </ng-template>
     </div>
 </div>
 }
@@ -129,8 +129,7 @@
                 </span>
             </div> -->
             <div class="position-absolute mt-2 end-76">
-                <span
-                    class="bg-dark  d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                <span class="bg-dark  d-flex justify-content-center align-items-center rounded-pill text-white p-1">
                     <mat-icon>location_on</mat-icon>
                     {{ item.city }}
                 </span>
