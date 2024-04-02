@@ -1,23 +1,11 @@
 <div class="container">
     <app-header />
 </div>
-<mat-divider />
-<div class="container">
-    <app-second-header (filterMissions)="onFilterMissionChange($event)" (filterOptions)="getOptions($event)"
-    #customHeader />
-</div>
-<mat-divider />
-<div class="container d-flex mt-3 flex-wrap">
-    <mat-chip *ngFor="let item of filterOptions" class="ms-2" [removable]="true" (removed)="clearOptions(item)">
-        {{ item.name }}
-        <mat-icon matChipRemove>cancel</mat-icon>
-    </mat-chip>
 
-    <mat-chip *ngIf="filterOptions.length > 0" class="ms-2" [removable]="true" (removed)="clearAllOptions()">
-        <span>Clear All</span>
-        <mat-icon matChipRemove>close</mat-icon>
-    </mat-chip>
+<div>
+    <app-second-header (filterMissions)="onFilterMissionChange($event)" />
 </div>
+
 <div class="container">
     <div class="d-flex pt-4">
         <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions</strong></h1>
@@ -39,7 +27,7 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 py-2">
         <ng-container *ngIf="missionList.length === 0; else missionsAvailable">
-            <p class="no-mission-text">No mission found</p>
+            <p class="no-mission-text text-center mt-5" style="width: 100%;">No mission found</p>
         </ng-container>
         <ng-template #missionsAvailable>
         @for (item of missionList; track item) {

@@ -48,12 +48,10 @@ import { CommonService } from '../../../services/common.service';
   ],
 })
 export class MissionListingComponent implements OnInit {
-  @ViewChild('customHeader') customHeader!: SecondHeaderComponent;
 
   sortBy = new FormControl('');
   sortByList: string[] = ['Newest', 'Oldest'];
   isGridView = true;
-  filterOptions: FilterOptionDTO[] = [];
   missionList: MissionDTO[] = [];
   currentUserData: CurrentUserDTO;
   filterMission: MissionSearchDTO;
@@ -95,46 +93,6 @@ export class MissionListingComponent implements OnInit {
 
   onFilterMissionChange = (values: MissionSearchDTO): void => {
     this.getMissionList(values);
-  };
-
-  getOptions = (event: FilterOptionDTO[]): void => {
-    this.filterOptions = event;
-  };
-
-  clearOptions = (event: FilterOptionDTO): void => {
-    if (this.customHeader) {
-      const control = this.customHeader.filterForm.controls[event.controlName];
-      const previousValue = control.value;
-
-      const filteredValue = previousValue?.filter((x) => x != event.id) ?? [];
-
-      control.setValue(filteredValue);
-
-      if (event.controlName === 'countryId') {
-        this.customHeader.cityList = [];
-
-        if (filteredValue.length > 0) {
-          this.commonService
-            .GetCitiesByCountry(filteredValue)
-            .subscribe((result) => {
-              this.customHeader.cityList = result.data ?? [];
-            });
-        }
-      }
-    }
-  };
-
-  clearAllOptions = (): void => {
-    if (this.customHeader) {
-      this.customHeader.filterForm.reset({
-        cityId: [],
-        countryId: [],
-        skillId: [],
-        themeId: [],
-        searchByText: '',
-      });
-      //this.customHeader.cityList = [];
-    }
   };
 
   addToFavourite = (missionId: number): void => {

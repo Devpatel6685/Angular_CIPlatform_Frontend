@@ -21,7 +21,9 @@ import {
   filterFormType,
 } from '../../../models/mission-listing.model';
 import { CommonService } from '../../../services/common.service';
- 
+import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-second-header',
   standalone: true,
@@ -34,19 +36,22 @@ import { CommonService } from '../../../services/common.service';
     MatIconModule,
     MatDividerModule,
     MatInputModule,
+    MatChipsModule,
+    CommonModule
   ],
   templateUrl: './second-header.component.html',
   styleUrl: './second-header.component.css',
 })
+
 export class SecondHeaderComponent implements OnInit {
   @Output() filterMissions = new EventEmitter<MissionSearchDTO>();
-  @Output() filterOptions = new EventEmitter<FilterOptionDTO[]>();
- 
+
   countryList: CountryDTO[] = [];
   cityList: CityDTO[] = [];
   themeList: ThemeDTO[] = [];
   skillList: SkillDTO[] = [];
- 
+  filterOptions: any = [];
+
   filterForm: FormGroup<filterFormType> = new FormGroup<filterFormType>({
     searchByText: new FormControl(''),
     countryId: new FormControl([]),
@@ -54,36 +59,37 @@ export class SecondHeaderComponent implements OnInit {
     themeId: new FormControl([]),
     skillId: new FormControl([]),
   });
- 
-  constructor(private commonService: CommonService) {}
- 
+
+  constructor(private commonService: CommonService) { }
+
   ngOnInit(): void {
     this.getDropdownValues();
     this.filterValueChanges();
   }
- 
+
   get ctrl(): filterFormType {
     return this.filterForm.controls;
   }
- 
+
   getDropdownValues = (): void => {
     this.commonService.GetAllCountries().subscribe((result) => {
       this.countryList = result.data;
     });
- 
+
     this.commonService.GetAllThemes().subscribe((result) => {
       this.themeList = result.data;
     });
- 
+
     this.commonService.GetAllSkills().subscribe((result) => {
       this.skillList = result.data;
     });
   };
- 
+
   filterValueChanges = (): void => {
     this.filterForm.valueChanges.subscribe(() => {
       this.filterMissions.emit(this.filterForm.value as MissionSearchDTO);
-      const options = [
+
+      this.filterOptions = [
         ...this.cityList
           .filter((item) =>
             this.ctrl.cityId.value?.find((x) => x == item.cityId)
@@ -117,20 +123,58 @@ export class SecondHeaderComponent implements OnInit {
             controlName: 'skillId',
           })),
       ];
- 
-      this.filterOptions.emit(options as FilterOptionDTO[]);
     });
- 
+
     this.ctrl.countryId.valueChanges.subscribe((value) => {
       if (value?.length && value?.length > 0) {
         this.commonService.GetCitiesByCountry(value).subscribe((result) => {
           this.cityList = result.data ?? [];
         });
       }
-      else{
+      else {
         this.cityList = [];
       }
     });
   };
+
+  clearOptions = (event: FilterOptionDTO): void => {
+    const control = this.filterForm.controls[event.controlName];
+    const previousValue = control.value;
+    const filteredValue = previousValue?.filter((x) => x != event.id) ?? [];
+
+    control.setValue(filteredValue);
+    let cityId = this.ctrl.cityId.value;
+    console.log("country",filteredValue);
+
+    if (event.controlName === 'countryId') {
+      this.cityList = [];
+      
+      if (filteredValue.length > 0) {
+        this.commonService
+          .GetCitiesByCountry(filteredValue)
+          .subscribe((result) => {
+            this.cityList = result.data ?? [];
+
+            const abc = cityId?.filter((x) => result.data.some((city: { cityId: number }) => city.cityId === x));
+            console.log(abc?.map(x => x) ?? []);
+            this.filterForm.controls.cityId.setValue(abc?.map(x => x) ?? []);
+          });
+      }
+      else
+      {
+        this.filterForm.controls.cityId.setValue([]);
+      }
+    }
+  };
+
+  clearAllOptions = (): void => {
+    this.filterForm.reset({
+      cityId: [],
+      countryId: [],
+      skillId: [],
+      themeId: [],
+      searchByText: '',
+    });
+  };
+
 }
- 
