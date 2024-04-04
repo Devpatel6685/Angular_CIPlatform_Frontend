@@ -103,7 +103,7 @@
                     <mat-divider />
                     <mat-card-content class="d-flex justify-content-center pt-3">
                         <button mat-stroked-button extended color="warn" class="outline-btn"
-                            (click)="redirectToVolunteer()">
+                            (click)="redirectToVolunteer(item.missionId)">
                             <span class="d-flex justify-content-center align-items-center">
                                 Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
                             </span>
@@ -206,7 +206,7 @@
                             </span>
                         </div>
                         <button mat-stroked-button extended color="warn" class="outline-btn ms-auto"
-                            (click)="redirectToVolunteer()">
+                            (click)="redirectToVolunteer(item.missionId)">
                             <span class="d-flex justify-content-center align-items-center">
                                 Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
                             </span>

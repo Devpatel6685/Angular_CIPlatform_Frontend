@@ -7,10 +7,10 @@
     </button>
     <button class="ms-auto" mat-button [matMenuTriggerFor]="Menu">
         <span class="d-flex justify-content-center align-items-center">
-            <img [src]="(currentUserData != null && currentUserData.avatar) ? currentUserData.avatar : 'assets/img/volunteer1.png'"
+            <img [src]="(currentUserData != null && currentUserData.avatar) ? 'assets/img/' + currentUserData.avatar : 'assets/img/volunteer1.png'"
                 class="profile-img me-1" />
-            {{currentUserData.firstname + " " + currentUserData.lastname}} <mat-icon>expand_more</mat-icon>
-        </span>
+            {{ currentUserData.firstname + " " + currentUserData.lastname }} <mat-icon>expand_more</mat-icon>
+        </span>        
     </button>
     <mat-menu #Menu="matMenu">
         <button mat-menu-item>My Profile</button>

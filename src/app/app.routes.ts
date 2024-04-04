@@ -35,9 +35,9 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'volunteering-mission',
+    path: 'volunteering-mission/:id',
     component: VolunteeringMissionComponent,
     title: 'CI | Mission Listing',
     canActivate: [AuthGuard],
-  },
+  }
 ];

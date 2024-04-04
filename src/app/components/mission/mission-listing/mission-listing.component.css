@@ -4,10 +4,11 @@
 }
 
 .no-mission-text {
-  font-size: 24px; /* adjust size as needed */
+  font-size: 24px;
   font-weight: bold;
   color: orange;
-  justify-content: center;
+  width: 100%;
+  text-align: center;
 }
 
 .icon-tags {

@@ -2,14 +2,348 @@
     <app-header />
 </div>
 <mat-divider />
-<div class="container border mt-5">
-    <div class="d-flex justify-content-between align-items-center">
-        <div>
-           
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 ps-4">
+            <owl-carousel-o [options]="carouselOptions">
+                @for (slide of mission.missionMedias; track slide) {
+                <ng-template carouselSlide dotContent="<img src='{{slide.mediaPath + slide.mediaName}}' />">
+                    <img style="aspect-ratio: 1 / 1;" [src]="slide.mediaPath + slide.mediaName" [alt]="slide.mediaName" />
+                </ng-template>
+                
+                }
+            </owl-carousel-o>
         </div>
-        <div>
-            aa
+        <div class="col-12 col-md-6 pt-3 d-flex flex-column">
+            <h1>
+                {{ mission.title }}
+            </h1>
+            <p>
+                {{ mission.description }}
+            </p>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="border-bottom w-100"></div>
+                <span class="bg-white opacity-100 rounded-pill p-2 px-3 text-nowrap border">
+                    {{ (mission.goalValue && mission.goalObjectiveText) ? (mission.goalValue + mission.goalObjectiveText) : ('From ' + (mission.startDate | date:'dd/MM/yyyy') + ' until ' + (mission.endDate | date:'dd/MM/yyyy')) }}
+                </span>
+                <div class="border-bottom w-100"></div>
+            </div>
+            <div class="d-flex px-5 my-2">
+                <mat-icon class="mx-2 mt-1">person_outline</mat-icon>
+                <div>
+                    <span>10</span>
+                    <br>
+                    <span class="small fw-light">
+                        Seats Left
+                    </span>
+                </div>
+                <mat-icon class="ms-auto mt-1 me-3">access_time</mat-icon>
+                <div>
+                    <span>{{mission.endDate | date: 'dd/MM/yyyy'}}</span>
+                    <br>
+                    <span class="small fw-light">
+                        Deadline
+                    </span>
+                </div>
+            </div>
+            <mat-divider />
+            <div class="mt-4 d-flex">
+                <button mat-stroked-button extended class="outline-btn px-5" (click)="addToFavourite(mission.missionId)">
+                    <span class="d-flex justify-content-center align-items-center">
+                        <mat-icon style="color: red" class="me-2">{{mission.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon> Add to Favourite
+                    </span>
+                </button>
+                <button mat-stroked-button extended class="outline-btn ms-auto">
+                    <span class="d-flex justify-content-center align-items-center">
+                        <mat-icon class="mx-2">group_add</mat-icon> Recommend to a Co-Worker
+                    </span>
+                </button>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-3">
+                <div class="border-bottom w-100"></div>
+                <span class="bg-white opacity-100 p-2 text-nowrap">
+                    <mat-icon class="star" (click)="SaveMissionRating(1)">{{ (newRatings > 0 ? newRatings >= 1 : mission.userRating >= 1) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(2)">{{ (newRatings > 0 ? newRatings >= 2 : mission.userRating >= 2) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(3)">{{ (newRatings > 0 ? newRatings >= 3 : mission.userRating >= 3) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(4)">{{ (newRatings > 0 ? newRatings >= 4 : mission.userRating >= 4) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(5)">{{ (newRatings > 0 ? newRatings >= 5 : mission.userRating >= 5) ? 'star' : 'star_border'}}</mat-icon>
+                </span>
+                <div class="border-bottom w-100"></div>
+            </div>
+
+            <mat-grid-list cols="4" rowHeight="1:1" gutterSize="1rem" class="mt-3">
+                <mat-grid-tile class="border">
+                    <div class="h-75 w-75 d-flex flex-column justify-content-between">
+                        <mat-icon>location_on</mat-icon>
+                        <span>city <br />
+                            <strong> {{ mission.city}} </strong></span>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="border">
+                    <div class="h-75 w-75 d-flex flex-column justify-content-between">
+                        <mat-icon>language</mat-icon>
+                        <span>Theme <br />
+                            <strong> {{mission.theme}} </strong> </span>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="border">
+                    <div class="h-75 w-75 d-flex flex-column justify-content-between">
+                        <mat-icon>calendar_month</mat-icon>
+                        <span>Date <br />
+                            <strong> Ongoing Opportunity</strong></span>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="border">
+                    <div class="h-75 w-75 d-flex flex-column justify-content-between">
+                        <mat-icon>groups</mat-icon>
+                        <span> Onganization <br />
+                            <strong> {{ mission.organizationName }} </strong></span>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <button *ngIf="!isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3" (click)="SaveMissionApplication()">
+                <span class="d-flex justify-content-center align-items-center">
+                  Apply Now<mat-icon class="ms-2">arrow_forward</mat-icon>
+                </span>
+              </button>
+              <button *ngIf="isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3" [disabled]="true">
+                <span class="d-flex justify-content-center align-items-center">
+                  Applied<mat-icon class="ms-2">done</mat-icon>
+                </span>
+              </button>
         </div>
     </div>
-    <p>volunteering-mission works!</p>
+    <div class="row my-5">
+        <div class="col-12 col-md-7">
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="info-tabs">
+
+                <mat-tab label="Mission">
+                    <h1 class="mt-3">
+                        Introduction
+                    </h1>
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                        Ipsum has been the industry's standard
+                        dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen
+                        book. 
+                    </p>
+                    <p>
+                        {{ mission.shortDescription }}
+                        {{ mission.description }}
+                    </p>
+                    <h1>
+                        Challenge
+                    </h1>
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                        Ipsum has been the industry's standard
+                        dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen
+                        book.
+                    </p>
+                    <p>
+                        {{ mission.shortDescription }}
+                        {{ mission.description }}
+                    </p>
+                    <h1>
+                        Documents
+                    </h1>
+                    <button mat-stroked-button extended class="outline-btn m-1">
+                        <span class="d-flex justify-content-center align-items-center px-1">
+                            <mat-icon class="mx-2">description</mat-icon> lorem-ipsum.pdf
+                        </span>
+                    </button>
+                    <button mat-stroked-button extended class="outline-btn m-1">
+                        <span class="d-flex justify-content-center align-items-center px-1">
+                            <mat-icon class="mx-2">description</mat-icon> at_vero_eos_accusamus.doc
+                        </span>
+                    </button>
+                    <button mat-stroked-button extended class="outline-btn m-1">
+                        <span class="d-flex justify-content-center align-items-center px-1">
+                            <mat-icon class="mx-2">description</mat-icon> important_doc.xls
+                        </span>
+                    </button>
+                </mat-tab>
+                <mat-tab label="Organization">
+                    <p class="mt-4">
+                        It Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                        Ipsum has been the industry's standard
+                        dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                        scrambled it to make a type specimen
+                        book.
+                        
+                            {{ mission.shortDescription }}
+                            {{ mission.description }}
+                       
+                    </p>
+                </mat-tab>
+                <mat-tab label="Comments">
+                    <mat-form-field class="w-100 mt-4" appearance="outline">
+                        <textarea matInput rows="3" [formControl]="commentText" placeholder="Enter your Comments..."></textarea>
+                    </mat-form-field>
+                    <button mat-stroked-button extended color="warn" class="outline-btn mt-2" [disabled]="!commentText.value" (click)="SaveComment()">
+                        <span>
+                            Post Comment
+                        </span>
+                    </button>
+                    <div class="mt-4 text-bg-light py-2 comments-div">
+                        @for (item of mission.comments; track item) {
+                        <div class="row bg-white m-4 p-2 d-flex">
+                            <div class="col-2 d-flex align-items-center">
+                                <img src="assets/img/{{ item.user?.avatar ? item.user?.avatar : 'volunteer2.png' }}" class="rounded-circle" style="height: 85px; width: 85px;" />
+                            </div>
+                            <div class="col-10">
+                                <h2 class="strong mb-0">
+                                    {{ item.user?.firstName}} {{ item.user?.lastName }}
+                                </h2>
+                                <h4>
+                                    {{ item.createdAt | date: 'EEEE, MMMM d, y, h.mm a' }}
+                                </h4>
+                                <h3 class="mb-0">
+                                    {{ item.approvalStatus }}
+                                </h3>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <div class="col-12 col-md-5">
+            <mat-card>
+                <mat-card-content>
+                    <h1> Information </h1>
+                    <mat-divider />
+                    <h3 class="my-2">
+                        <span class="me-5"> Skills</span> <span> {{mission.missionSkills}} </span>
+                    </h3>
+                    <mat-divider />
+                    <h3 class="my-2">
+                        <span class="me-5"> Days</span> <span> Daily</span>
+                    </h3>
+                    <mat-divider />
+                    <h3 class="my-2 d-flex">
+                        <span class="me-5"> Rating</span>
+                        <span class="bg-white opacity-100 d-flex align-items-center text-nowrap">
+                            <mat-icon class="star">{{ mission.rating >= 1 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ mission.rating >= 2 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ mission.rating >= 3 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ mission.rating >= 4 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ mission.rating >= 5 ? 'star' : 'star_border'}}</mat-icon>
+                            (by {{mission.countOfUsersRated}} volunteers)
+                        </span>
+                    </h3>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="mt-5">
+                <mat-card-content>
+                    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="info-tabs">
+
+                        <mat-tab label="Recent Volunteers">
+                            <div class="row row-cols-3 m-0 mx-5 my-3 g-2">
+                                @for (item of mission.volunteres; track item) {
+                                <div class="col d-flex flex-column justify-content-center align-items-center">
+                                    <img src="assets/img/{{ item.avatar ? item.avatar : 'user1.png' }}" class="rounded-circle h-75 w-75" />
+                                    <span class="mt-1"> {{ item.firstName}}    {{ item.lastName }} </span>
+                                </div>
+                                }
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </mat-card-content>
+                <div class="d-flex border volunteer-footer align-items-center" [ngClass]="mission.volunteres.length > 9 ? 'justify-content-between' : 'justify-content-center'">
+
+                    <mat-icon class="border-end ms-2" *ngIf="mission.volunteres.length > 9">keyboard_arrow_left</mat-icon>
+                    <span> {{ '1 - '+ (mission.volunteres.length < 9 ? mission.volunteres.length : 9) + ' of ' + mission.volunteres.length }} Recent Volunteers </span>
+                    <mat-icon class="border-start me-2" *ngIf="mission.volunteres.length > 9">keyboard_arrow_right</mat-icon>
+
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<mat-divider />
+<div class="container my-5">
+    <h1 class="strong text-center"> Related Missions</h1>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 py-2">
+        @for (item of missionList; track item) {
+        <div class="col pb-4">
+            <mat-card>
+                <img mat-card-image class="position-relative card-img"
+                    [src]="item.missionImagePath + item.missionImage" />
+                <div class="position-absolute location-tag">
+                    <span
+                        class="bg-dark opacity-75 d-flex justify-content-center align-items-center rounded-pill text-white p-1">
+                        <mat-icon>location_on</mat-icon>
+                        {{ item.city }}
+                    </span>
+                </div>
+                <div class="position-absolute d-flex flex-column g-1 icon-tags">
+                    <button mat-fab class="bg-dark opacity-75 text-white">
+                        <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
+                    <button mat-fab disabled class="bg-dark opacity-75 text-white mt-2">
+                        <mat-icon>group_add</mat-icon></button>
+
+                </div>
+                <span
+                    class="d-flex bg-white position-absolute opacity-100 justify-content-center align-items-center rounded-pill p-2 theme-tag">
+                    {{ item.theme }}
+                </span>
+                <mat-card-content class="p-3">
+                    <h1>{{item.title}}</h1>
+                    <p>
+                        {{ item.shortDescription}}
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span> {{ item.organizationName }} </span>
+                        <span>
+                            <mat-icon class="star">{{ item.rating > 1 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ item.rating > 2 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ item.rating > 3 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ item.rating > 4 ? 'star' : 'star_border'}}</mat-icon>
+                            <mat-icon class="star">{{ item.rating > 5 ? 'star' : 'star_border'}}</mat-icon>
+                        </span>
+                    </div>
+                </mat-card-content>
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="border-bottom w-100"></div>
+                    <span class="bg-white opacity-100 rounded-pill p-2 text-nowrap border">
+                        From {{ item.startDate | date:'dd/MM/yyyy' }} until {{ item.endDate | date:'dd/MM/yyyy' }}
+                    </span>
+                    <div class="border-bottom w-100"></div>
+                </div>
+                <mat-card-content>
+                    <div class="d-flex">
+                        <mat-icon class="ms-2 mt-1">person_outline</mat-icon>
+                        <div>
+                            <span>{{ item.seatsLeft }}</span>
+                            <br>
+                            <span class="small fw-light">
+                                Seats Left
+                            </span>
+                        </div>
+                        <mat-icon class="ms-auto mt-1 me-1">access_time</mat-icon>
+                        <div>
+                            <span>{{ item.endDate | date:'dd/MM/yyyy' }}</span>
+                            <br>
+                            <span class="small fw-light">
+                                Deadline
+                            </span>
+                        </div>
+                    </div>
+                </mat-card-content>
+
+                <mat-divider />
+                <mat-card-content class="d-flex justify-content-center pt-3">
+                    <button mat-stroked-button extended color="warn" class="outline-btn" (click)="redirectToVolunteer(item.missionId)">
+                        <span class="d-flex justify-content-center align-items-center">
+                            Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
+                        </span>
+                    </button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        }
+    </div>
 </div>

@@ -25,6 +25,54 @@ export interface MissionDTO {
   isFavourite: boolean;
 }
 
+export interface VolunteeringMissionDTO {
+  city: string;
+  cityId: number;
+  comments: CommentDTO[];
+  countryId: number;
+  description: string;
+  endDate: Date;
+  goalObjectiveText: string;
+  goalValue: number;
+  isFavourite: boolean;
+  missionId: number;
+  missionMedias: MissionMedia[];
+  missionSkills: null;
+  missionType: string;
+  organizationName: string;
+  userRating :number;
+  rating: number;
+  countOfUsersRated: Number;
+  relatedMissions: null;
+  seatsLeft: number;
+  shortDescription: string;
+  startDate: Date;
+  theme: string;
+  themeId: number;
+  title: string;
+  volunteres: User[];
+}
+
+export interface CommentDTO {
+  commentId?: number;
+  userId: number;
+  missionId: number;
+  approvalStatus: string;
+  createdAt?: Date;
+  updatedAt?: null;
+  deletedAt?: null;
+  mission?: null;
+  user?: User;
+}
+
+export interface User {
+  avatar: string;
+  userId: number;
+  firstName: string;
+  lastName: string;
+  whyIVolunteer?: string;
+}
+
 export type filterFormType = {
   searchByText: FormControl<string | null>;
   countryId: FormControl<number[] | null>;
@@ -40,6 +88,35 @@ export interface CountryDTO {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+}
+export interface CommentDto {
+  commentId?: number;
+  userId: number;
+  missionId: number;
+  approvalStatus: string;
+  createdAt?: Date;
+  updatedAt?: null;
+  deletedAt?: null;
+  mission?: null;
+  user?: User;
+}
+
+export interface MissionRatingDTO {
+  userId: number;
+  missionId: number;
+  ratings: number;
+}
+
+export interface MissionMedia {
+  missionMediaId: number;
+  missionId: number;
+  mediaName: string;
+  mediaType: string;
+  mediaPath: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: null;
+  mission: null;
 }
 
 export interface CityDTO {

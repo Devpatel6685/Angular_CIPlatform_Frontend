@@ -119,7 +119,7 @@ export class MissionListingComponent implements OnInit {
       });
   };
 
-  redirectToVolunteer = (): void => {
-    this.router.navigateByUrl('/volunteering-mission');
+  redirectToVolunteer = (missionId: number): void => {
+    this.router.navigateByUrl(`/volunteering-mission/${missionId}`);
   };
 }

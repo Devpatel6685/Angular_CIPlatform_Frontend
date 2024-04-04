@@ -15,6 +15,11 @@ export const endPoint = {
     GetAllSkills: "Common/GetAllSkills",
     AddToFavourite: "Mission/AddToFavourite",
     GetMissionsByFilter: "Mission/GetMissionsByFilter",
+    GetVolunteeringMission: "Mission/GetVolunteeringMission",
+    SaveMissionApplication: "Mission/SaveMissionApplication",
+    SaveComment: "Mission/SaveComment",
+    SaveRatings: "Mission/SaveRatings",
+    checkMissionApplied :"Mission/checkMissionApplied"
 };
 
 export const StatusCodes = {

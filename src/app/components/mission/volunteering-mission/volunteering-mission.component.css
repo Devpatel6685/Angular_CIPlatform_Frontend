@@ -1,0 +1,55 @@
+@import url("../mission-listing/mission-listing.component.css");
+
+.info-tabs {
+  ::ng-deep .mat-mdc-tab-labels {
+    border-bottom: 2px solid #bbb2b2;
+  }
+
+  --mdc-tab-indicator-active-indicator-color: #000000;
+  --mat-tab-header-active-label-text-color: #000000;
+  --mat-tab-header-active-focus-label-text-color: #000000;
+  --mat-tab-header-active-hover-label-text-color: #000000;
+  --mat-tab-header-active-focus-indicator-color: #000000;
+  --mat-tab-header-active-hover-indicator-color: #000000;
+}
+
+.comments-div {
+  height: 450px;
+  overflow: hidden;
+
+  &:hover {
+    overflow: auto;
+  }
+}
+.star{
+    color : #ffb413
+}
+.volunteer-footer {
+  mat-icon {
+    transform: scale(1.6);
+    height: 29px;
+  }
+  height: 50px;
+}
+
+::ng-deep .owl-stage-outer {
+  height: 30rem !important;
+}
+
+::ng-deep .owl-dots {
+  margin-top: 0 !important;
+  overflow: hidden;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+}
+
+:host ::ng-deep .owl-dots:hover {
+  overflow: auto;
+}
+
+::ng-deep .owl-dot.owl-dot-text img,
+::ng-deep .owl-dot.owl-dot-text span {
+  height: 70px !important;
+  width: 100px !important;
+}
