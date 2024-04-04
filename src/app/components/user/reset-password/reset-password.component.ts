@@ -68,7 +68,7 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   get ctrl(): resetPasswordForm {
     return this.resetPassForm.controls;
@@ -78,8 +78,8 @@ export class ResetPasswordComponent implements OnInit {
     this.token = this.activatedRoute.snapshot.paramMap.get('token') as string;
   }
 
-  checkpassword(){
-    if(this.ctrl.password.value != this.ctrl.confirmPassword.value){
+  checkpassword() {
+    if (this.ctrl.password.value != this.ctrl.confirmPassword.value) {
       this.ctrl.confirmPassword.setErrors({ invalid: true });
     }
   }
@@ -90,28 +90,28 @@ export class ResetPasswordComponent implements OnInit {
       if (result.code === StatusCodes.Ok) {
         this.ctrl.password.setErrors({ oldpassword: true });
       }
-    });
 
-    if (this.resetPassForm.valid) {
-      let obj: ResetPasswordDTO = {
-        password: this.ctrl.password.value as string,
-        token: this.token,
-      };
-      this.userService
-        .ResetPassword(obj)
-        .pipe(takeUntil(this.ngUnsubscribe))
-        .subscribe((result) => {
-          this.message = result.messages ? result.messages[0] : this.message;
-          if (result.code === StatusCodes.Ok) {
-            this.resetPasswordSuccess = true;
-            this.snackBar.open('Password reset Successfully', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
-            this.redirectToUrl("/");
-          } else {
-            this.resetPasswordSuccess = false;
-            this.snackBar.open('Token is Expired! Please resend the email.', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
-          }
-        });
-    }
+      if (this.resetPassForm.valid) {
+        let obj: ResetPasswordDTO = {
+          password: this.ctrl.password.value as string,
+          token: this.token,
+        };
+        this.userService
+          .ResetPassword(obj)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((result) => {
+            this.message = result.messages ? result.messages[0] : this.message;
+            if (result.code === StatusCodes.Ok) {
+              this.resetPasswordSuccess = true;
+              this.snackBar.open('Password reset Successfully', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+              this.redirectToUrl("/");
+            } else {
+              this.resetPasswordSuccess = false;
+              this.snackBar.open('Token is Expired! Please resend the email.', 'OK', { duration: 3000, horizontalPosition: 'right', verticalPosition: 'top' });
+            }
+          });
+      }
+    });
   };
 
   redirectToUrl(url: string) {

@@ -164,3 +164,11 @@ export interface MissionSearchDTO {
   SortOrder: string;
   userId: number;
 }
+
+export interface RecommandUserDTO {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  completed: boolean;
+}

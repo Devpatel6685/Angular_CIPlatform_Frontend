@@ -144,7 +144,6 @@ export class SecondHeaderComponent implements OnInit {
 
     control.setValue(filteredValue);
     let cityId = this.ctrl.cityId.value;
-    console.log("country", filteredValue);
 
     if (event.controlName === 'countryId') {
       this.cityList = [];
@@ -156,7 +155,6 @@ export class SecondHeaderComponent implements OnInit {
             this.cityList = result.data ?? [];
 
             const abc = cityId?.filter((x) => result.data.some((city: { cityId: number }) => city.cityId === x));
-            console.log(abc?.map(x => x) ?? []);
             this.filterForm.controls.cityId.setValue(abc?.map(x => x) ?? []);
           });
       }

@@ -50,7 +50,7 @@
                             <ng-template #notFavourite>
                                 <mat-icon>favorite_outline</mat-icon>
                             </ng-template></button>
-                        <button mat-fab disabled class="bg-dark text-white mt-3">
+                        <button mat-fab (click)="openDialog(item.missionId)" class="bg-dark text-white mt-3">
                             <mat-icon>group_add</mat-icon></button>
                     </div>
                     <span

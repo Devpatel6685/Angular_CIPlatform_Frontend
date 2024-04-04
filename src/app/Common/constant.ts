@@ -7,6 +7,7 @@ export const endPoint = {
     ForgotPassword: "User/ForgotPassword",
     ResetPassword: "User/ResetPassword",
     CheckPassWord:"User/CheckPassWord",
+
     GetAllBanners: "Common/GetAllBanners",
     GetAllUsers: "Common/GetAllUsers",
     GetAllCountries: "Common/GetAllCountries",
@@ -15,6 +16,7 @@ export const endPoint = {
     GetAllSkills: "Common/GetAllSkills",
     AddToFavourite: "Mission/AddToFavourite",
     GetMissionsByFilter: "Mission/GetMissionsByFilter",
+    RecommandMissionToWorkers:"Mission/RecommandMissionToWorkers",
     GetVolunteeringMission: "Mission/GetVolunteeringMission",
     SaveMissionApplication: "Mission/SaveMissionApplication",
     SaveComment: "Mission/SaveComment",

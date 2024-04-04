@@ -18,13 +18,11 @@ import { UserService } from '../../../services/user.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 
-import {
-  FilterOptionDTO,
-  MissionDTO,
-  MissionSearchDTO,
-} from '../../../models/mission-listing.model';
+import { MissionDTO, MissionSearchDTO } from '../../../models/mission-listing.model';
 import { CurrentUserDTO } from '../../../models/user-models';
 import { CommonService } from '../../../services/common.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RecommandMissionDialogComponent } from '../recommand-mission-dialog/recommand-mission-dialog.component';
 
 @Component({
   selector: 'app-mission-listing',
@@ -61,7 +59,8 @@ export class MissionListingComponent implements OnInit {
     private missionService: MissionService,
     public commonFunctionService: CommonFunctionService,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public dialog: MatDialog
   ) {
     this.currentUserData = inject(UserService).currentUserValue();
     this.filterMission = {
@@ -118,6 +117,12 @@ export class MissionListingComponent implements OnInit {
         }
       });
   };
+
+  openDialog(id: number) {
+    const dialogRef = this.dialog.open(RecommandMissionDialogComponent, {
+      data: { missionId: id, userId: this.currentUserData != null ? this.currentUserData.id : 0 }
+    });
+  }
 
   redirectToVolunteer = (missionId: number): void => {
     this.router.navigateByUrl(`/volunteering-mission/${missionId}`);

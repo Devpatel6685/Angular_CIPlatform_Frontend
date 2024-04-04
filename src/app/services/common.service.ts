@@ -31,4 +31,8 @@ export class CommonService {
     return this.httpClient.get<ApiResponseDTO>(baseAPIUrl + endPoint.GetAllSkills);
   }
 
+  GetAllUsers(): Observable<ApiResponseDTO> {
+    return this.httpClient.get<ApiResponseDTO>(baseAPIUrl + endPoint.GetAllUsers);
+  }
+
 }
