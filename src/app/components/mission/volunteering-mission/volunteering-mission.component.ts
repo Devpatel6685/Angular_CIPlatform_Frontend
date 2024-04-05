@@ -26,6 +26,7 @@ import { UserService } from '../../../services/user.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpStatusCode } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-volunteering-mission',
@@ -82,7 +83,7 @@ export class VolunteeringMissionComponent implements OnInit {
   ) {
     this.currentUserData = inject(UserService).currentUserValue();
     this.route.params.subscribe((params) => {
-      this.missionId = params['id'];
+      this.missionId = parseInt(params['id']);
     });
   }
 
@@ -110,9 +111,16 @@ export class VolunteeringMissionComponent implements OnInit {
       searchByText: '',
       userId: this.currentUserData.id,
     };
+
     this.missionService.GetMissionsByFilter(relatedObj).subscribe((result) => {
+      const relatedMissions: MissionDTO[] = result.data;
+      const filteredMission: MissionDTO[] = relatedMissions.filter(
+        (x) => x.missionId !== this.missionId
+      );
       this.missionList =
-        result.data.length <= 3 ? result.data : result.data.slice(0, 3);
+        filteredMission.length <= 3
+          ? filteredMission
+          : filteredMission.slice(0, 3);
     });
   };
 
@@ -205,8 +213,7 @@ export class VolunteeringMissionComponent implements OnInit {
   };
 
   redirectToVolunteer = (missionId: number): void => {
-    this.router.navigateByUrl('/volunteering-mission', {
-      state: { missionId: missionId },
-    });
+    this.router.navigateByUrl(`/volunteering-mission/${missionId}`);
+    location.reload();
   };
 }
