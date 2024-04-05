@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import {
   MissionDTO,
   MissionSearchDTO,
+  RelatedMisssionDTO,
   VolunteeringMissionDTO,
 } from '../../../models/mission-listing.model';
 import { CurrentUserDTO } from '../../../models/user-models';
@@ -102,25 +103,16 @@ export class VolunteeringMissionComponent implements OnInit {
   };
 
   getRelatedMission = (): void => {
-    const relatedObj: MissionSearchDTO = {
-      themeId: [this.mission.themeId],
-      countryId: [this.mission.countryId],
-      cityId: [this.mission.cityId],
-      skillId: [],
-      SortOrder: '',
-      searchByText: '',
+    const relatedMission: RelatedMisssionDTO = {
+      themeId: this.mission.themeId,
+      countryId: this.mission.countryId,
+      cityId: this.mission.cityId,
+      missionId: this.missionId,
       userId: this.currentUserData.id,
     };
 
-    this.missionService.GetMissionsByFilter(relatedObj).subscribe((result) => {
-      const relatedMissions: MissionDTO[] = result.data;
-      const filteredMission: MissionDTO[] = relatedMissions.filter(
-        (x) => x.missionId !== this.missionId
-      );
-      this.missionList =
-        filteredMission.length <= 3
-          ? filteredMission
-          : filteredMission.slice(0, 3);
+    this.missionService.GetRelatedMission(relatedMission).subscribe((result) => {
+      this.missionList = result.data;
     });
   };
 
@@ -166,7 +158,6 @@ export class VolunteeringMissionComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top',
           });
-          this.getVolunteeringMission(this.missionId);
           this.isMissionApplied = true;
         }
       });

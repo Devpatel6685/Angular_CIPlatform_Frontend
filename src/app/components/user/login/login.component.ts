@@ -50,6 +50,7 @@ export class LoginComponent {
           sessionStorage.setItem("token", result.data.token);
           this.userService.isLoggedIn.next(true);
           this.userService.currentUser.next(result.data.data);
+          localStorage.setItem("token", result.data.token);
           localStorage.setItem("currentUser", JSON.stringify(result.data.data));
           this.redirectToUrl("/mission-listing");
           // this.startLogoutTimer();

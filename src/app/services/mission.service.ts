@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResponseDTO } from '../models/apiresponse-model';
 import { baseAPIUrl, endPoint } from '../Common/constant';
-import { AddToFavouriteDTO, CommentDTO, MissionRatingDTO, MissionSearchDTO, RecommandUserDTO } from '../models/mission-listing.model';
+import { AddToFavouriteDTO, CommentDTO, MissionRatingDTO, MissionSearchDTO, RecommandUserDTO, RelatedMisssionDTO } from '../models/mission-listing.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +42,9 @@ export class MissionService {
   RecommandMissionToWorkers(missionId: number, userId: number, body: RecommandUserDTO[]): Observable<ApiResponseDTO> {
     const url = `${baseAPIUrl}${endPoint.RecommandMissionToWorkers}?missionId=${missionId}&userId=${userId}`;
     return this.httpClient.post<ApiResponseDTO>(url, body);
+  }
+
+  GetRelatedMission(bodyData: RelatedMisssionDTO): Observable<ApiResponseDTO> {
+    return this.httpClient.post<ApiResponseDTO>(baseAPIUrl + endPoint.GetRelatedMission, bodyData);
   }
 }

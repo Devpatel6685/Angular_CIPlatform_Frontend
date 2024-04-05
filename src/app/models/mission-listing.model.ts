@@ -172,3 +172,11 @@ export interface RecommandUserDTO {
   email: string;
   completed: boolean;
 }
+
+export interface RelatedMisssionDTO {
+  cityId: number;
+  countryId: number;
+  themeId: number;
+  missionId: number;
+  userId: number;
+}

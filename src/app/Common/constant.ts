@@ -21,7 +21,8 @@ export const endPoint = {
     SaveMissionApplication: "Mission/SaveMissionApplication",
     SaveComment: "Mission/SaveComment",
     SaveRatings: "Mission/SaveRatings",
-    checkMissionApplied :"Mission/checkMissionApplied"
+    checkMissionApplied :"Mission/checkMissionApplied",
+    GetRelatedMission:"Mission/GetRelatedMission"
 };
 
 export const StatusCodes = {

@@ -9,7 +9,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     isLoggedIn = res;
   });
 
-  let token = sessionStorage.getItem("token");
+  let token = localStorage.getItem("token");
   if (token) {
     const modifiedHeader = req.clone({ setHeaders: { 'Authorization': 'Bearer ' + token as string } });
     return next(modifiedHeader);
