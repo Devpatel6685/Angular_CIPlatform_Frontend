@@ -27,7 +27,8 @@ import { UserService } from '../../../services/user.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpStatusCode } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { ThisReceiver } from '@angular/compiler';
+import { MatDialog } from '@angular/material/dialog';
+import { RecommandMissionDialogComponent } from '../recommand-mission-dialog/recommand-mission-dialog.component';
 
 @Component({
   selector: 'app-volunteering-mission',
@@ -57,6 +58,41 @@ export class VolunteeringMissionComponent implements OnInit {
   mission!: VolunteeringMissionDTO;
   isMissionApplied: boolean = false;
   missionId = 0;
+  itemsPerPage = 9;
+  currentPage = 1;
+
+  get totalPages(): number {
+    return Math.ceil(this.mission.volunteres.length / this.itemsPerPage);
+  }
+
+  getPaginationInfo(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.mission.volunteres.length
+    );
+    return `${startIndex + 1} - ${endIndex} of ${
+      this.mission.volunteres.length
+    } Recent Volunteers`;
+  }
+
+  getCurrentPageVolunteers(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = this.currentPage * this.itemsPerPage;
+    return this.mission.volunteres.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
 
   carouselOptions: OwlOptions = {
     loop: true,
@@ -80,7 +116,8 @@ export class VolunteeringMissionComponent implements OnInit {
     private router: Router,
     private commonService: CommonService,
     private CommonFunctionService: CommonFunctionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {
     this.currentUserData = inject(UserService).currentUserValue();
     this.route.params.subscribe((params) => {
@@ -111,10 +148,21 @@ export class VolunteeringMissionComponent implements OnInit {
       userId: this.currentUserData.id,
     };
 
-    this.missionService.GetRelatedMission(relatedMission).subscribe((result) => {
-      this.missionList = result.data;
-    });
+    this.missionService
+      .GetRelatedMission(relatedMission)
+      .subscribe((result) => {
+        this.missionList = result.data;
+      });
   };
+
+  openDialog(id: number) {
+    const dialogRef = this.dialog.open(RecommandMissionDialogComponent, {
+      data: {
+        missionId: id,
+        userId: this.currentUserData != null ? this.currentUserData.id : 0,
+      },
+    });
+  }
 
   addToFavourite = (missionId: number): void => {
     this.missionService

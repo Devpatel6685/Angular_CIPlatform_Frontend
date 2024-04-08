@@ -10,7 +10,7 @@
                 <ng-template carouselSlide dotContent="<img src='{{slide.mediaPath + slide.mediaName}}' />">
                     <img style="aspect-ratio: 1 / 1;" [src]="slide.mediaPath + slide.mediaName" [alt]="slide.mediaName" />
                 </ng-template>
-                
+
                 }
             </owl-carousel-o>
         </div>
@@ -24,7 +24,7 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="border-bottom w-100"></div>
                 <span class="bg-white opacity-100 rounded-pill p-2 px-3 text-nowrap border">
-                    {{ (mission.goalValue && mission.goalObjectiveText) ? (mission.goalValue + mission.goalObjectiveText) : ('From ' + (mission.startDate | date:'dd/MM/yyyy') + ' until ' + (mission.endDate | date:'dd/MM/yyyy')) }}
+                    {{ (mission.goalValue && mission.goalObjectiveText) ? (mission.goalValue + mission.goalObjectiveText) : ('From ' + (mission.startDate | date:'dd/MM/yyyy') + ' until ' +(mission.endDate | date:'dd/MM/yyyy')) }}
                 </span>
                 <div class="border-bottom w-100"></div>
             </div>
@@ -48,12 +48,14 @@
             </div>
             <mat-divider />
             <div class="mt-4 d-flex">
-                <button mat-stroked-button extended class="outline-btn px-5" (click)="addToFavourite(mission.missionId)">
+                <button mat-stroked-button extended class="outline-btn px-5"
+                    (click)="addToFavourite(mission.missionId)">
                     <span class="d-flex justify-content-center align-items-center">
-                        <mat-icon style="color: red" class="me-2">{{mission.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon> Add to Favourite
+                        <mat-icon style="color: red" class="me-2">{{mission.isFavourite ? 'favorite' :
+                            'favorite_outline'}}</mat-icon> Add to Favourite
                     </span>
                 </button>
-                <button mat-stroked-button extended class="outline-btn ms-auto">
+                <button (click)="openDialog(mission.missionId)" mat-stroked-button extended class="outline-btn ms-auto">
                     <span class="d-flex justify-content-center align-items-center">
                         <mat-icon class="mx-2">group_add</mat-icon> Recommend to a Co-Worker
                     </span>
@@ -62,11 +64,16 @@
             <div class="d-flex justify-content-center align-items-center mt-3">
                 <div class="border-bottom w-100"></div>
                 <span class="bg-white opacity-100 p-2 text-nowrap">
-                    <mat-icon class="star" (click)="SaveMissionRating(1)">{{ (newRatings > 0 ? newRatings >= 1 : mission.userRating >= 1) ? 'star' : 'star_border'}}</mat-icon>
-                    <mat-icon class="star" (click)="SaveMissionRating(2)">{{ (newRatings > 0 ? newRatings >= 2 : mission.userRating >= 2) ? 'star' : 'star_border'}}</mat-icon>
-                    <mat-icon class="star" (click)="SaveMissionRating(3)">{{ (newRatings > 0 ? newRatings >= 3 : mission.userRating >= 3) ? 'star' : 'star_border'}}</mat-icon>
-                    <mat-icon class="star" (click)="SaveMissionRating(4)">{{ (newRatings > 0 ? newRatings >= 4 : mission.userRating >= 4) ? 'star' : 'star_border'}}</mat-icon>
-                    <mat-icon class="star" (click)="SaveMissionRating(5)">{{ (newRatings > 0 ? newRatings >= 5 : mission.userRating >= 5) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(1)">{{ (newRatings > 0 ? newRatings >= 1 :
+                        mission.userRating >= 1) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(2)">{{ (newRatings > 0 ? newRatings >= 2 :
+                        mission.userRating >= 2) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(3)">{{ (newRatings > 0 ? newRatings >= 3 :
+                        mission.userRating >= 3) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(4)">{{ (newRatings > 0 ? newRatings >= 4 :
+                        mission.userRating >= 4) ? 'star' : 'star_border'}}</mat-icon>
+                    <mat-icon class="star" (click)="SaveMissionRating(5)">{{ (newRatings > 0 ? newRatings >= 5 :
+                        mission.userRating >= 5) ? 'star' : 'star_border'}}</mat-icon>
                 </span>
                 <div class="border-bottom w-100"></div>
             </div>
@@ -101,16 +108,18 @@
                     </div>
                 </mat-grid-tile>
             </mat-grid-list>
-            <button *ngIf="!isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3" (click)="SaveMissionApplication()">
+            <button *ngIf="!isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3"
+                (click)="SaveMissionApplication()">
                 <span class="d-flex justify-content-center align-items-center">
-                  Apply Now<mat-icon class="ms-2">arrow_forward</mat-icon>
+                    Apply Now<mat-icon class="ms-2">arrow_forward</mat-icon>
                 </span>
-              </button>
-              <button *ngIf="isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3" [disabled]="true">
+            </button>
+            <button *ngIf="isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3"
+                [disabled]="true">
                 <span class="d-flex justify-content-center align-items-center">
-                  Applied<mat-icon class="ms-2">done</mat-icon>
+                    Applied<mat-icon class="ms-2">done</mat-icon>
                 </span>
-              </button>
+            </button>
         </div>
     </div>
     <div class="row my-5">
@@ -126,7 +135,7 @@
                         Ipsum has been the industry's standard
                         dummy text ever since the 1500s, when an unknown printer took a galley of type and
                         scrambled it to make a type specimen
-                        book. 
+                        book.
                     </p>
                     <p>
                         {{ mission.shortDescription }}
@@ -172,17 +181,19 @@
                         dummy text ever since the 1500s, when an unknown printer took a galley of type and
                         scrambled it to make a type specimen
                         book.
-                        
-                            {{ mission.shortDescription }}
-                            {{ mission.description }}
-                       
+
+                        {{ mission.shortDescription }}
+                        {{ mission.description }}
+
                     </p>
                 </mat-tab>
                 <mat-tab label="Comments">
                     <mat-form-field class="w-100 mt-4" appearance="outline">
-                        <textarea matInput rows="3" [formControl]="commentText" placeholder="Enter your Comments..."></textarea>
+                        <textarea matInput rows="3" [formControl]="commentText"
+                            placeholder="Enter your Comments..."></textarea>
                     </mat-form-field>
-                    <button mat-stroked-button extended color="warn" class="outline-btn mt-2" [disabled]="!commentText.value" (click)="SaveComment()">
+                    <button mat-stroked-button extended color="warn" class="outline-btn mt-2"
+                        [disabled]="!commentText.value" (click)="SaveComment()">
                         <span>
                             Post Comment
                         </span>
@@ -191,7 +202,8 @@
                         @for (item of mission.comments; track item) {
                         <div class="row bg-white m-4 p-2 d-flex">
                             <div class="col-2 d-flex align-items-center">
-                                <img src="assets/img/{{ item.user?.avatar ? item.user?.avatar : 'volunteer2.png' }}" class="rounded-circle" style="height: 85px; width: 85px;" />
+                                <img src="assets/img/{{ item.user?.avatar ? item.user?.avatar : 'volunteer2.png' }}"
+                                    class="rounded-circle" style="height: 85px; width: 85px;" />
                             </div>
                             <div class="col-10">
                                 <h2 class="strong mb-0">
@@ -242,23 +254,26 @@
 
                         <mat-tab label="Recent Volunteers">
                             <div class="row row-cols-3 m-0 mx-5 my-3 g-2">
-                                @for (item of mission.volunteres; track item) {
-                                <div class="col d-flex flex-column justify-content-center align-items-center">
-                                    <img src="assets/img/{{ item.avatar ? item.avatar : 'user1.png' }}" class="rounded-circle h-75 w-75" />
-                                    <span class="mt-1"> {{ item.firstName}}    {{ item.lastName }} </span>
+                                <div *ngFor="let item of getCurrentPageVolunteers()"
+                                    class="col d-flex flex-column justify-content-center align-items-center">
+                                    <img src="assets/img/{{ item.avatar ? item.avatar : 'user1.png' }}"
+                                        class="rounded-circle h-75 w-75" />
+                                    <span class="mt-1">{{ item.firstName }} {{ item.lastName }}</span>
                                 </div>
-                                }
                             </div>
+
                         </mat-tab>
+
                     </mat-tab-group>
                 </mat-card-content>
-                <div class="d-flex border volunteer-footer align-items-center" [ngClass]="mission.volunteres.length > 9 ? 'justify-content-between' : 'justify-content-center'">
-
-                    <mat-icon class="border-end ms-2" *ngIf="mission.volunteres.length > 9">keyboard_arrow_left</mat-icon>
-                    <span> {{ '1 - '+ (mission.volunteres.length < 9 ? mission.volunteres.length : 9) + ' of ' + mission.volunteres.length }} Recent Volunteers </span>
-                    <mat-icon class="border-start me-2" *ngIf="mission.volunteres.length > 9">keyboard_arrow_right</mat-icon>
-
+                <div class="d-flex border volunteer-footer align-items-center justify-content-center mt-3">
+                    <mat-icon class="border-end ms-2" *ngIf="currentPage !== 1"
+                        (click)="previousPage()">keyboard_arrow_left</mat-icon>
+                    <span>{{ getPaginationInfo() }}</span>
+                    <mat-icon class="border-start me-2" *ngIf="currentPage !== totalPages"
+                        (click)="nextPage()">keyboard_arrow_right</mat-icon>
                 </div>
+
             </mat-card>
         </div>
     </div>
@@ -281,7 +296,8 @@
                 </div>
                 <div class="position-absolute d-flex flex-column g-1 icon-tags">
                     <button mat-fab class="bg-dark opacity-75 text-white">
-                        <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
+                        <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' :
+                            'favorite_outline'}}</mat-icon></button>
                     <button mat-fab disabled class="bg-dark opacity-75 text-white mt-2">
                         <mat-icon>group_add</mat-icon></button>
 
@@ -336,7 +352,8 @@
 
                 <mat-divider />
                 <mat-card-content class="d-flex justify-content-center pt-3">
-                    <button mat-stroked-button extended color="warn" class="outline-btn" (click)="redirectToVolunteer(item.missionId)">
+                    <button mat-stroked-button extended color="warn" class="outline-btn"
+                        (click)="redirectToVolunteer(item.missionId)">
                         <span class="d-flex justify-content-center align-items-center">
                             Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
                         </span>
