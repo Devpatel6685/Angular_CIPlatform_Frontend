@@ -8,7 +8,8 @@
             <owl-carousel-o [options]="carouselOptions">
                 @for (slide of mission.missionMedias; track slide) {
                 <ng-template carouselSlide dotContent="<img src='{{slide.mediaPath + slide.mediaName}}' />">
-                    <img style="aspect-ratio: 1 / 1;" [src]="slide.mediaPath + slide.mediaName" [alt]="slide.mediaName" />
+                    <img style="aspect-ratio: 1 / 1;" [src]="slide.mediaPath + slide.mediaName"
+                        [alt]="slide.mediaName" />
                 </ng-template>
 
                 }
@@ -24,7 +25,9 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="border-bottom w-100"></div>
                 <span class="bg-white opacity-100 rounded-pill p-2 px-3 text-nowrap border">
-                    {{ (mission.goalValue && mission.goalObjectiveText) ? (mission.goalValue + mission.goalObjectiveText) : ('From ' + (mission.startDate | date:'dd/MM/yyyy') + ' until ' +(mission.endDate | date:'dd/MM/yyyy')) }}
+                    {{ (mission.goalValue && mission.goalObjectiveText) ? (mission.goalValue +
+                    mission.goalObjectiveText) : ('From ' + (mission.startDate | date:'dd/MM/yyyy') + ' until '
+                    +(mission.endDate | date:'dd/MM/yyyy')) }}
                 </span>
                 <div class="border-bottom w-100"></div>
             </div>
@@ -207,7 +210,7 @@
                             </div>
                             <div class="col-10">
                                 <h2 class="strong mb-0">
-                                    {{ item.user?.firstName}} {{ item.user?.lastName }}
+                                    {{ item.user?.firstname}} {{ item.user?.lastname }}
                                 </h2>
                                 <h4>
                                     {{ item.createdAt | date: 'EEEE, MMMM d, y, h.mm a' }}
@@ -258,7 +261,7 @@
                                     class="col d-flex flex-column justify-content-center align-items-center">
                                     <img src="assets/img/{{ item.avatar ? item.avatar : 'user1.png' }}"
                                         class="rounded-circle h-75 w-75" />
-                                    <span class="mt-1">{{ item.firstName }} {{ item.lastName }}</span>
+                                    <span class="mt-1">{{ item.firstname }} {{ item.lastname }}</span>
                                 </div>
                             </div>
 
@@ -266,14 +269,14 @@
 
                     </mat-tab-group>
                 </mat-card-content>
-                <div class="d-flex border volunteer-footer align-items-center justify-content-center mt-3">
-                    <mat-icon class="border-end ms-2" *ngIf="currentPage !== 1"
+                <div class="d-flex border volunteer-footer align-items-center justify-content-between mt-3">
+                    <mat-icon class="border-end ms-2" [ngStyle]="{'color': currentPage === 1 ? 'gray' : 'black'}"
                         (click)="previousPage()">keyboard_arrow_left</mat-icon>
                     <span>{{ getPaginationInfo() }}</span>
-                    <mat-icon class="border-start me-2" *ngIf="currentPage !== totalPages"
+                    <mat-icon class="border-start me-2"
+                        [ngStyle]="{'color': currentPage === totalPages ? 'gray' : 'black'}"
                         (click)="nextPage()">keyboard_arrow_right</mat-icon>
                 </div>
-
             </mat-card>
         </div>
     </div>

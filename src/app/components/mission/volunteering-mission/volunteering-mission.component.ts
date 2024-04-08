@@ -58,7 +58,7 @@ export class VolunteeringMissionComponent implements OnInit {
   mission!: VolunteeringMissionDTO;
   isMissionApplied: boolean = false;
   missionId = 0;
-  itemsPerPage = 9;
+  itemsPerPage = 3;
   currentPage = 1;
 
   get totalPages(): number {

@@ -68,8 +68,8 @@ export interface CommentDTO {
 export interface User {
   avatar: string;
   userId: number;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   whyIVolunteer?: string;
 }
 
