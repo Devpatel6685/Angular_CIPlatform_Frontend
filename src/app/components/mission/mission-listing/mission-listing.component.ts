@@ -53,6 +53,7 @@ export class MissionListingComponent implements OnInit {
   missionList: MissionDTO[] = [];
   currentUserData: CurrentUserDTO;
   filterMission: MissionSearchDTO;
+  myWatchList: boolean = false;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -77,21 +78,23 @@ export class MissionListingComponent implements OnInit {
   ngOnInit(): void {
     this.sortBy.valueChanges.subscribe((value) => {
       this.filterMission.SortOrder = value || '';
-      this.getMissionList(this.filterMission);
+      this.getMissionList(this.filterMission, this.myWatchList);
     });
-    this.getMissionList(this.filterMission);
+    this.getMissionList(this.filterMission, this.myWatchList);
   }
 
-  getMissionList = (value: MissionSearchDTO): void => {
+  getMissionList = (value: MissionSearchDTO, data: boolean): void => {
     value.userId = this.currentUserData != null ? this.currentUserData.id : 0;
     this.filterMission = value;
     this.missionService.GetMissionsByFilter(value).subscribe((result) => {
       this.missionList = result.data;
+      if (data)
+        this.missionList = this.missionList.filter(a => a.isFavourite == data);
     });
   };
 
   onFilterMissionChange = (values: MissionSearchDTO): void => {
-    this.getMissionList(values);
+    this.getMissionList(values, this.myWatchList);
   };
 
   addToFavourite = (missionId: number): void => {
@@ -107,7 +110,7 @@ export class MissionListingComponent implements OnInit {
             horizontalPosition: 'right',
             verticalPosition: 'top',
           });
-          this.getMissionList(this.filterMission);
+          this.getMissionList(this.filterMission, this.myWatchList);
         } else {
           this.snackBar.open('Error Occur!', 'OK', {
             duration: 3000,
@@ -122,6 +125,11 @@ export class MissionListingComponent implements OnInit {
     const dialogRef = this.dialog.open(RecommandMissionDialogComponent, {
       data: { missionId: id, userId: this.currentUserData != null ? this.currentUserData.id : 0 }
     });
+  }
+
+  GetData(data: boolean) {
+    this.myWatchList = data;
+    this.getMissionList(this.filterMission, this.myWatchList);
   }
 
   redirectToVolunteer = (missionId: number): void => {

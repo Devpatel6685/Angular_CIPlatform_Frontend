@@ -1,5 +1,5 @@
 <div class="container">
-    <app-header />
+    <app-header (isWhatchList)="GetData($event)"/>
 </div>
 
 <div>
@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="d-flex pt-4">
-        <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions</strong></h1>
+        <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions </strong><span style="font-size: medium;" *ngIf="myWatchList">(My Favourite Mission)</span></h1>
         <mat-form-field class="ms-auto me-2" appearance="outline">
             <mat-label>Sort By</mat-label>
             <mat-select [formControl]="sortBy">
@@ -44,12 +44,7 @@
                     </div>
                     <div class="position-absolute d-flex flex-column g-1 icon-tags">
                         <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
-                            <ng-container *ngIf="item.isFavourite; else notFavourite">
-                                <mat-icon style="color: red">favorite</mat-icon>
-                            </ng-container>
-                            <ng-template #notFavourite>
-                                <mat-icon>favorite_outline</mat-icon>
-                            </ng-template></button>
+                            <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
                         <button mat-fab (click)="openDialog(item.missionId)" class="bg-dark text-white mt-3">
                             <mat-icon>group_add</mat-icon></button>
                     </div>

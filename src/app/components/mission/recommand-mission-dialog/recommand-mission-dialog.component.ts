@@ -30,6 +30,7 @@ export class RecommandMissionDialogComponent {
   ngOnInit(): void {
     this.commonService.GetAllUsers().subscribe((result) => {
       this.users = result.data;
+      this.users = this.users.filter(a => a.id != this.userId);
       this.users.forEach(x => x.completed = false);
     });
   }

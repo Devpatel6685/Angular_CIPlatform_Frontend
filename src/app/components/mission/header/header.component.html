@@ -14,6 +14,7 @@
     </button>
     <mat-menu #Menu="matMenu">
         <button mat-menu-item>My Profile</button>
+        <button mat-menu-item (click)="MyWatchList()" [ngStyle]="{ 'display': showButton ? 'block' : 'none' }">My WatchList</button>
         <button mat-menu-item (click)="logOut()">Log Out</button>
     </mat-menu>
 </div>
