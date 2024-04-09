@@ -16,6 +16,7 @@ import { MissionService } from '../../../services/mission.service';
 import { Router } from '@angular/router';
 import {
   MissionDTO,
+  MissionMedia,
   MissionSearchDTO,
   RelatedMisssionDTO,
   VolunteeringMissionDTO,
@@ -60,6 +61,8 @@ export class VolunteeringMissionComponent implements OnInit {
   missionId = 0;
   itemsPerPage = 3;
   currentPage = 1;
+  missionImage:MissionMedia[] =[];
+  missionDocument:MissionMedia[] = [];
 
   get totalPages(): number {
     return Math.ceil(this.mission.volunteres.length / this.itemsPerPage);
@@ -135,6 +138,8 @@ export class VolunteeringMissionComponent implements OnInit {
       .GetVolunteeringMission(missionId, this.currentUserData.id)
       .subscribe((result) => {
         this.mission = result.data;
+        this.missionImage = this.mission.missionMedias.filter(a => a.mediaType == "Image")
+        this.missionDocument = this.mission.missionMedias.filter(a => a.mediaType != "Image")
         this.getRelatedMission();
       });
   };
@@ -250,6 +255,16 @@ export class VolunteeringMissionComponent implements OnInit {
         }
       });
   };
+
+  openDocument (){
+    this.missionService.downloadPDF('assets/pdf/lorem-ipsum').subscribe((res: Blob) => {
+      const blob = new Blob([res], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'downloaded_file.pdf';
+      link.click();
+    });
+  }
 
   redirectToVolunteer = (missionId: number): void => {
     this.router.navigateByUrl(`/volunteering-mission/${missionId}`);

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiResponseDTO } from '../models/apiresponse-model';
 import { baseAPIUrl, endPoint } from '../Common/constant';
 import { AddToFavouriteDTO, CommentDTO, MissionRatingDTO, MissionSearchDTO, RecommandUserDTO, RelatedMisssionDTO } from '../models/mission-listing.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +48,9 @@ export class MissionService {
   GetRelatedMission(bodyData: RelatedMisssionDTO): Observable<ApiResponseDTO> {
     return this.httpClient.post<ApiResponseDTO>(baseAPIUrl + endPoint.GetRelatedMission, bodyData);
   }
+
+  downloadPDF(url:string): any {
+    return this.httpClient.get(url, { responseType: 'blob' });
+  }
+
 }

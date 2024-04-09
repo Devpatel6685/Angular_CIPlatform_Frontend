@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12 col-md-6 ps-4">
             <owl-carousel-o [options]="carouselOptions">
-                @for (slide of mission.missionMedias; track slide) {
+                @for (slide of missionImage; track slide) {
                 <ng-template carouselSlide dotContent="<img src='{{slide.mediaPath + slide.mediaName}}' />">
                     <img style="aspect-ratio: 1 / 1;" [src]="slide.mediaPath + slide.mediaName"
                         [alt]="slide.mediaName" />
@@ -161,11 +161,15 @@
                     <h1>
                         Documents
                     </h1>
-                    <button mat-stroked-button extended class="outline-btn m-1">
-                        <span class="d-flex justify-content-center align-items-center px-1">
-                            <mat-icon class="mx-2">description</mat-icon> lorem-ipsum.pdf
-                        </span>
-                    </button>
+                    @for (doc of missionDocument; track doc) {
+                        <a mat-stroked-button extended class="outline-btn m-1" (click)="openDocument()">
+                            <span class="d-flex justify-content-center align-items-center px-1">
+                                <mat-icon class="mx-2">description</mat-icon> {{ doc.mediaPath.substring(doc.mediaPath.lastIndexOf('/') + 1) }}{{ doc.mediaName}}
+                            </span>
+                        </a>
+        
+                        }
+                    
                     <button mat-stroked-button extended class="outline-btn m-1">
                         <span class="d-flex justify-content-center align-items-center px-1">
                             <mat-icon class="mx-2">description</mat-icon> at_vero_eos_accusamus.doc
@@ -264,7 +268,6 @@
                                     <span class="mt-1">{{ item.firstname }} {{ item.lastname }}</span>
                                 </div>
                             </div>
-
                         </mat-tab>
 
                     </mat-tab-group>
