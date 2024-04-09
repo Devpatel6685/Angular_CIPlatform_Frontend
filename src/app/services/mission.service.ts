@@ -49,8 +49,12 @@ export class MissionService {
     return this.httpClient.post<ApiResponseDTO>(baseAPIUrl + endPoint.GetRelatedMission, bodyData);
   }
 
-  downloadPDF(url:string): any {
-    return this.httpClient.get(url, { responseType: 'blob' });
+  downloadPDF(url:string): Observable<Blob> {
+    return this.httpClient.get(url, { responseType: 'blob' }).pipe(
+      map((res: Blob) => {
+        return new Blob([res], { type: 'application/pdf' });
+      })
+    );
   }
 
 }

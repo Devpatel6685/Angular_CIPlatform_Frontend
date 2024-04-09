@@ -162,7 +162,7 @@
                         Documents
                     </h1>
                     @for (doc of missionDocument; track doc) {
-                        <a mat-stroked-button extended class="outline-btn m-1" (click)="openDocument()">
+                        <a mat-stroked-button extended class="outline-btn m-1" (click)="openDocument(doc.mediaPath + doc.mediaName)">
                             <span class="d-flex justify-content-center align-items-center px-1">
                                 <mat-icon class="mx-2">description</mat-icon> {{ doc.mediaPath.substring(doc.mediaPath.lastIndexOf('/') + 1) }}{{ doc.mediaName}}
                             </span>

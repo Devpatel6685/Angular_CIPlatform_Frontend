@@ -256,13 +256,10 @@ export class VolunteeringMissionComponent implements OnInit {
       });
   };
 
-  openDocument (){
-    this.missionService.downloadPDF('assets/pdf/lorem-ipsum').subscribe((res: Blob) => {
-      const blob = new Blob([res], { type: 'application/pdf' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'downloaded_file.pdf';
-      link.click();
+  openDocument (url:string){
+    this.missionService.downloadPDF(url).subscribe((res: Blob) => {
+      const fileURL = URL.createObjectURL(res);
+      window.open(fileURL, '_blank');
     });
   }
 
