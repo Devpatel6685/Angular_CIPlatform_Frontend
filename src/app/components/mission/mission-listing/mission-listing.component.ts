@@ -60,7 +60,6 @@ export class MissionListingComponent implements OnInit {
     private missionService: MissionService,
     public commonFunctionService: CommonFunctionService,
     private router: Router,
-    private commonService: CommonService,
     public dialog: MatDialog
   ) {
     this.currentUserData = inject(UserService).currentUserValue();

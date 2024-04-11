@@ -1,0 +1,61 @@
+<div class="container">
+    <app-header />
+</div>
+<mat-divider />
+
+
+<div class="position-relative display-content" *ngIf="storyList">
+
+    <img class="card-img" [src]="storyList[0].storyImage" />
+    <div class="main-img-overlay justify-content-center align-items-center flex-column px-5">
+        <p class="text-white text-truncate text-wrap mx-5 px-5" style="height: 55px;">
+            {{ storyList[0].description }}
+        </p>
+        <button mat-stroked-button extended class="outline-btn text-white story-btn bg-transparent p-2"
+            (click)="redirectToURL('/share-story')">
+            <span class="d-flex justify-content-center align-items-center">
+                Share your story <mat-icon class="ms-2">arrow_forward</mat-icon>
+            </span>
+        </button>
+    </div>
+</div>
+<div class="container">
+    <div class="d-flex pt-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 py-2">
+            @for (item of storyList; track item) {
+            <div class="col pb-4">
+                <mat-card>
+                    <img mat-card-image class="position-relative card-img" [src]="item.storyImage" />
+                    <span
+                        class="d-flex bg-white position-absolute opacity-100 justify-content-center align-items-center rounded-pill p-2 theme-tag">
+                        {{ item.theme}}
+                    </span>
+                    <div class="img-overlay justify-content-center align-items-center">
+                        <button mat-stroked-button extended class="outline-btn text-white story-btn bg-transparent"
+                            (click)="redirectToURL('/story-details',item.storyId)">
+                            <span class="d-flex justify-content-center align-items-center">
+                                View Details <mat-icon class="ms-2">arrow_forward</mat-icon>
+                            </span>
+                        </button>
+                    </div>
+                    <mat-card-content class="p-3">
+                        <h1>{{ item.title}}</h1>
+                        <p class="text-truncate text-wrap" style="height: 5rem;">
+                            {{ item.description}}
+                        </p>
+                        <div class="d-flex">
+                            <div class="col-2 d-flex align-items-center">
+                                <img src="assets/img/{{ item.user.avatar ? item.user.avatar : 'user1.png' }}"
+                                    class="rounded-circle" style="height: 55px; width: 55px;" />
+                            </div>
+                            <div class="col-8 ms-4 d-flex align-items-center">
+                                {{ item.user.firstname}} {{ item.user.lastname }}
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            }
+        </div>
+    </div>
+</div>

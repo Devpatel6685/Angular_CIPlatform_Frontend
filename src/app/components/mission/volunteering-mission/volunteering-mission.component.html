@@ -118,7 +118,7 @@
                 </span>
             </button>
             <button *ngIf="isMissionApplied" mat-stroked-button extended color="warn" class="outline-btn mx-auto mt-3"
-                [disabled]="true">
+                [disabled]="true" [ngStyle]="{'color': 'green'}">
                 <span class="d-flex justify-content-center align-items-center">
                     Applied<mat-icon class="ms-2">done</mat-icon>
                 </span>
@@ -162,24 +162,14 @@
                         Documents
                     </h1>
                     @for (doc of missionDocument; track doc) {
-                        <a mat-stroked-button extended class="outline-btn m-1" (click)="openDocument(doc.mediaPath + doc.mediaName)">
-                            <span class="d-flex justify-content-center align-items-center px-1">
-                                <mat-icon class="mx-2">description</mat-icon> {{ doc.mediaPath.substring(doc.mediaPath.lastIndexOf('/') + 1) }}{{ doc.mediaName}}
-                            </span>
-                        </a>
-        
-                        }
-                    
-                    <button mat-stroked-button extended class="outline-btn m-1">
+                    <a mat-stroked-button extended class="outline-btn m-1"
+                        (click)="openDocument(doc.mediaPath + doc.mediaName)">
                         <span class="d-flex justify-content-center align-items-center px-1">
-                            <mat-icon class="mx-2">description</mat-icon> at_vero_eos_accusamus.doc
+                            <mat-icon class="mx-2">description</mat-icon> {{
+                            doc.mediaPath.substring(doc.mediaPath.lastIndexOf('/') + 1) }}{{ doc.mediaName}}
                         </span>
-                    </button>
-                    <button mat-stroked-button extended class="outline-btn m-1">
-                        <span class="d-flex justify-content-center align-items-center px-1">
-                            <mat-icon class="mx-2">description</mat-icon> important_doc.xls
-                        </span>
-                    </button>
+                    </a>
+                    }
                 </mat-tab>
                 <mat-tab label="Organization">
                     <p class="mt-4">
@@ -220,7 +210,7 @@
                                     {{ item.createdAt | date: 'EEEE, MMMM d, y, h.mm a' }}
                                 </h4>
                                 <h3 class="mb-0">
-                                    {{ item.approvalStatus }}
+                                    {{ item.commentMessage }}
                                 </h3>
                             </div>
                         </div>

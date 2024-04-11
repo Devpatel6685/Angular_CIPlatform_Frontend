@@ -61,8 +61,8 @@ export class VolunteeringMissionComponent implements OnInit {
   missionId = 0;
   itemsPerPage = 3;
   currentPage = 1;
-  missionImage:MissionMedia[] =[];
-  missionDocument:MissionMedia[] = [];
+  missionImage: MissionMedia[] = [];
+  missionDocument: MissionMedia[] = [];
 
   get totalPages(): number {
     return Math.ceil(this.mission.volunteres.length / this.itemsPerPage);
@@ -74,9 +74,8 @@ export class VolunteeringMissionComponent implements OnInit {
       this.currentPage * this.itemsPerPage,
       this.mission.volunteres.length
     );
-    return `${startIndex + 1} - ${endIndex} of ${
-      this.mission.volunteres.length
-    } Recent Volunteers`;
+    return `${startIndex + 1} - ${endIndex} of ${this.mission.volunteres.length
+      } Recent Volunteers`;
   }
 
   getCurrentPageVolunteers(): any[] {
@@ -117,8 +116,6 @@ export class VolunteeringMissionComponent implements OnInit {
     private missionService: MissionService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private commonService: CommonService,
-    private CommonFunctionService: CommonFunctionService,
     private route: ActivatedRoute,
     public dialog: MatDialog
   ) {
@@ -221,7 +218,8 @@ export class VolunteeringMissionComponent implements OnInit {
       .SaveComment({
         missionId: this.missionId,
         userId: this.currentUserData.id,
-        approvalStatus: this.commentText.value ?? '',
+        approvalStatus: 'Pending',
+        commentMessage: this.commentText.value ?? '',
       })
       .subscribe((result) => {
         if (result.code == HttpStatusCode.Ok && result) {
@@ -256,7 +254,7 @@ export class VolunteeringMissionComponent implements OnInit {
       });
   };
 
-  openDocument (url:string){
+  openDocument(url: string) {
     this.missionService.downloadPDF(url).subscribe((res: Blob) => {
       const fileURL = URL.createObjectURL(res);
       window.open(fileURL, '_blank');

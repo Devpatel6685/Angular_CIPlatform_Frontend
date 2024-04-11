@@ -22,7 +22,10 @@ export const endPoint = {
     SaveComment: "Mission/SaveComment",
     SaveRatings: "Mission/SaveRatings",
     checkMissionApplied :"Mission/checkMissionApplied",
-    GetRelatedMission:"Mission/GetRelatedMission"
+    GetRelatedMission:"Mission/GetRelatedMission",
+
+    GetStory: "Story/GetStory",
+    GetStoryById: "Story/GetStoryById",
 };
 
 export const StatusCodes = {

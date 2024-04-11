@@ -23,6 +23,7 @@ export interface MissionDTO {
   missionId: number;
   skill: string;
   isFavourite: boolean;
+  missionApplied:boolean;
 }
 
 export interface VolunteeringMissionDTO {
@@ -58,6 +59,7 @@ export interface CommentDTO {
   userId: number;
   missionId: number;
   approvalStatus: string;
+  commentMessage:string;
   createdAt?: Date;
   updatedAt?: null;
   deletedAt?: null;

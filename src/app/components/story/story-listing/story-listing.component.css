@@ -1,0 +1,34 @@
+.theme-tag {
+    left: 40%;
+    top: 315px;
+}
+
+.card-img {
+    height: 330px;
+}
+
+.story-btn {
+    --mdc-outlined-button-label-text-color: #fff;
+}
+
+.img-overlay, .main-img-overlay {
+    position: absolute;
+    height: 330px;
+    background-color: rgb(44 44 44 / 50%);
+    transition: opacity 0.3s;
+    width: 100%;
+    display: none;
+    top: 0;
+}
+
+mat-card:hover {
+    .img-overlay {
+        display: flex;
+    }
+}
+
+.display-content:hover {
+    .main-img-overlay {
+        display: flex;
+    }
+}

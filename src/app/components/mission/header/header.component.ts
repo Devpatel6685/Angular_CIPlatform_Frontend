@@ -48,4 +48,9 @@ export class HeaderComponent {
     }
     this.isWhatchList.emit(this.myWatchList);
   }
+
+  Navigate() {
+    this.router.navigateByUrl(`story-listing`);
+  }
+
 }

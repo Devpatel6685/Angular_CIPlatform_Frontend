@@ -1,5 +1,5 @@
 <div class="container">
-    <app-header (isWhatchList)="GetData($event)"/>
+    <app-header (isWhatchList)="GetData($event)" />
 </div>
 
 <div>
@@ -8,7 +8,8 @@
 
 <div class="container">
     <div class="d-flex pt-4">
-        <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions </strong><span style="font-size: medium;" *ngIf="myWatchList">(My Favourite Mission)</span></h1>
+        <h1 class="mt-2">Explore <strong>{{missionList.length}} Missions </strong><span style="font-size: medium;"
+                *ngIf="myWatchList">(My Favourite Mission)</span></h1>
         <mat-form-field class="ms-auto me-2" appearance="outline">
             <mat-label>Sort By</mat-label>
             <mat-select [formControl]="sortBy">
@@ -44,7 +45,8 @@
                     </div>
                     <div class="position-absolute d-flex flex-column g-1 icon-tags">
                         <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
-                            <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
+                            <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' :
+                                'favorite_outline'}}</mat-icon></button>
                         <button mat-fab (click)="openDialog(item.missionId)" class="bg-dark text-white mt-3">
                             <mat-icon>group_add</mat-icon></button>
                     </div>
@@ -61,7 +63,7 @@
                             <span> {{ item.organizationName }} </span>
                             <span>
                                 <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-                                    <mat-icon>{{ item.rating >= star ? 'star' : 'star_border'}}</mat-icon>
+                                    <mat-icon class="star">{{ item.rating >= star ? 'star' : 'star_border'}}</mat-icon>
                                 </ng-container>
                             </span>
                         </div>
@@ -97,8 +99,14 @@
 
                     <mat-divider />
                     <mat-card-content class="d-flex justify-content-center pt-3">
-                        <button mat-stroked-button extended color="warn" class="outline-btn"
-                            (click)="redirectToVolunteer(item.missionId)">
+                        <button *ngIf="item.missionApplied" mat-stroked-button extended color="warn" class="outline-btn"
+                            (click)="redirectToVolunteer(item.missionId)" [ngStyle]="{'color': 'green'}">
+                            <span class="d-flex justify-content-center align-items-center">
+                                Applied<mat-icon class="ms-2">done</mat-icon>
+                            </span>
+                        </button>
+                        <button *ngIf="!item.missionApplied" mat-stroked-button extended color="warn"
+                            class="outline-btn" (click)="redirectToVolunteer(item.missionId)">
                             <span class="d-flex justify-content-center align-items-center">
                                 Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
                             </span>
@@ -131,8 +139,9 @@
             </div>
             <div class="position-absolute d-flex flex-column g-1 top-50 end-76">
                 <button mat-fab class="bg-dark  text-white" (click)="addToFavourite(item.missionId)">
-                    <mat-icon>{{item.isFavourite ? 'favorite' : 'favorite_outline'}}</mat-icon></button>
-                <button mat-fab disabled class="bg-dark  text-white mt-2">
+                    <mat-icon style="color: red;">{{item.isFavourite ? 'favorite' :
+                        'favorite_outline'}}</mat-icon></button>
+                <button mat-fab class="bg-dark  text-white mt-2" (click)="openDialog(item.missionId)">
                     <mat-icon>group_add</mat-icon></button>
 
             </div>
@@ -156,11 +165,9 @@
                             {{ item.organizationName }}
                         </span>
                         <span class="ms-auto">
-                            <mat-icon>{{ item.rating > 1 ? 'star' : 'star_border'}}</mat-icon>
-                            <mat-icon>{{ item.rating > 2 ? 'star' : 'star_border'}}</mat-icon>
-                            <mat-icon>{{ item.rating > 3 ? 'star' : 'star_border'}}</mat-icon>
-                            <mat-icon>{{ item.rating > 4 ? 'star' : 'star_border'}}</mat-icon>
-                            <mat-icon>{{ item.rating > 5 ? 'star' : 'star_border'}}</mat-icon>
+                            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                                <mat-icon class="star">{{ item.rating >= star ? 'star' : 'star_border'}}</mat-icon>
+                            </ng-container>
                         </span>
                     </div>
                     <div class="py-4">
@@ -200,8 +207,16 @@
                                 {{item.skill}}
                             </span>
                         </div>
-                        <button mat-stroked-button extended color="warn" class="outline-btn ms-auto"
-                            (click)="redirectToVolunteer(item.missionId)">
+                        <button *ngIf="item.missionApplied" mat-stroked-button extended color="warn"
+                            class="outline-btn ms-auto" (click)="redirectToVolunteer(item.missionId)"
+                            [ngStyle]="{'color': 'green'}">
+                            <span class="d-flex justify-content-center align-items-center">
+                                Applied<mat-icon class="ms-2">done</mat-icon>
+
+                            </span>
+                        </button>
+                        <button *ngIf="!item.missionApplied" mat-stroked-button extended color="warn"
+                            class="outline-btn ms-auto" (click)="redirectToVolunteer(item.missionId)">
                             <span class="d-flex justify-content-center align-items-center">
                                 Apply <mat-icon class="ms-2">arrow_forward</mat-icon>
                             </span>

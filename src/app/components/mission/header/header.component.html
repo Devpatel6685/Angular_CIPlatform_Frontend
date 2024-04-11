@@ -1,5 +1,5 @@
 <div class="d-flex py-3">
-    <button mat-flat-button class="ms-5 ml-0">Stories</button>
+    <a mat-flat-button class="ms-5 ml-0" (click)="Navigate()">Stories</a>
     <button mat-button>
         <span class="d-flex justify-content-center align-items-center">
             Privacy Policy
@@ -10,11 +10,12 @@
             <img [src]="(currentUserData != null && currentUserData.avatar) ? 'assets/img/' + currentUserData.avatar : 'assets/img/volunteer1.png'"
                 class="profile-img me-1" />
             {{ currentUserData.firstname + " " + currentUserData.lastname }} <mat-icon>expand_more</mat-icon>
-        </span>        
+        </span>
     </button>
     <mat-menu #Menu="matMenu">
         <button mat-menu-item>My Profile</button>
-        <button mat-menu-item (click)="MyWatchList()" [ngStyle]="{ 'display': showButton ? 'block' : 'none' }">My WatchList</button>
+        <button mat-menu-item (click)="MyWatchList()" [ngStyle]="{ 'display': showButton ? 'block' : 'none' }">My
+            WatchList</button>
         <button mat-menu-item (click)="logOut()">Log Out</button>
     </mat-menu>
 </div>
